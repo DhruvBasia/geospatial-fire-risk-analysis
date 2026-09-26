@@ -1,0 +1,154 @@
+{
+  "basemaps": [
+    {
+      "id": "osm",
+      "name": "OpenStreetMap",
+      "type": "raster"
+    },
+    {
+      "id": "satellite",
+      "name": "Satellite",
+      "type": "raster"
+    }
+  ],
+  "overlays": [
+    {
+      "id": "survey_points",
+      "file": "survey_points.geojson",
+      "name": "Survey Points (Risk)",
+      "type": "point"
+    },
+    {
+      "id": "study_area",
+      "file": "study_area.geojson",
+      "name": "Study Area",
+      "type": "polygon"
+    },
+    {
+      "id": "residential",
+      "file": "residential.geojson",
+      "name": "Residential",
+      "type": "polygon"
+    },
+    {
+      "id": "commercial",
+      "file": "commercial.geojson",
+      "name": "Commercial",
+      "type": "polygon"
+    },
+    {
+      "id": "com_res",
+      "file": "com_res.geojson",
+      "name": "Commercial + Residential",
+      "type": "polygon"
+    },
+    {
+      "id": "ind_res",
+      "file": "ind_res.geojson",
+      "name": "Industrial + Residential",
+      "type": "polygon"
+    },
+    {
+      "id": "ind_com",
+      "file": "ind_com.geojson",
+      "name": "Industrial + Commercial",
+      "type": "polygon"
+    },
+    {
+      "id": "g_plus_1",
+      "file": "g_plus_1.geojson",
+      "name": "G+1 Buildings",
+      "type": "polygon"
+    },
+    {
+      "id": "g_plus_2",
+      "file": "g_plus_2.geojson",
+      "name": "G+2 Buildings",
+      "type": "polygon"
+    },
+    {
+      "id": "g_plus_3",
+      "file": "g_plus_3.geojson",
+      "name": "G+3 Buildings",
+      "type": "polygon"
+    },
+    {
+      "id": "g_plus_4",
+      "file": "g_plus_4.geojson",
+      "name": "G+4 Buildings",
+      "type": "polygon"
+    },
+    {
+      "id": "roads",
+      "file": "roads.geojson",
+      "name": "Major Roads",
+      "type": "line"
+    },
+    {
+      "id": "streets",
+      "file": "streets.geojson",
+      "name": "Streets",
+      "type": "line"
+    },
+    {
+      "id": "drain",
+      "file": "drain.geojson",
+      "name": "Drain",
+      "type": "line"
+    },
+    {
+      "id": "railway",
+      "file": "railway.geojson",
+      "name": "Railway",
+      "type": "line"
+    },
+    {
+      "id": "metro_line",
+      "file": "metro_line.geojson",
+      "name": "Metro Line",
+      "type": "line"
+    },
+    {
+      "id": "metro_station",
+      "file": "metro_station.geojson",
+      "name": "Metro Station",
+      "type": "point"
+    },
+    {
+      "id": "health_centers",
+      "file": "health_centers.geojson",
+      "name": "Health Centers",
+      "type": "point"
+    },
+    {
+      "id": "schools",
+      "file": "schools.geojson",
+      "name": "Schools",
+      "type": "point"
+    },
+    {
+      "id": "religious_places",
+      "file": "religious_places.geojson",
+      "name": "Religious Places",
+      "type": "point"
+    },
+    {
+      "id": "public_semi_public",
+      "file": "public_semi_public.geojson",
+      "name": "Public/Semi-Public",
+      "type": "polygon"
+    },
+    {
+      "id": "ward_boundary",
+      "file": "ward_boundary.geojson",
+      "name": "Ward Boundary",
+      "type": "polygon"
+    }
+  ],
+  "risk_colors": {
+    "Severe": "#D32F2F",
+    "High": "#FF9800",
+    "Moderate": "#FFC107",
+    "Low": "#4CAF50"
+  }
+}

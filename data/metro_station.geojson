@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "metro_station",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": null, "Name": null, "Name 1": "Seelampur Metro Station" }, "geometry": { "type": "Point", "coordinates": [ 77.266708229584268, 28.670463041381797 ] } },
+{ "type": "Feature", "properties": { "id": null, "Name": null, "Name 1": "Welcome Metro Station" }, "geometry": { "type": "Point", "coordinates": [ 77.2770351063661, 28.672234789849849 ] } }
+]
+}

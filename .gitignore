@@ -1,0 +1,26 @@
+# --- Raw datasets (DO NOT push) ---
+*.gpkg
+*.gpkg-shm
+*.gpkg-wal
+*.zip
+*.xlsx
+*.csv
+
+# --- Extracted / unpacked folders ---
+extracted/
+extracted3/
+extracted_qgz/
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# --- OS / editor ---
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
+*.log
