@@ -8,6 +8,7 @@ An interactive Web GIS platform and multi-criteria spatial risk assessment engin
 ![GeoJSON](https://img.shields.io/badge/Data%20Format-GeoJSON-blue)
 ![OpenStreetMap](https://img.shields.io/badge/Basemap-OpenStreetMap-7EBC6F?logo=openstreetmap)
 ![License](https://img.shields.io/badge/License-MIT-green)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/DhruvBasia/geospatial-fire-risk-analysis)
 
 ---
 
