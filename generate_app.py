@@ -53,52 +53,102 @@ def build_app():
   
   <style>
     /* =========================================================
-       DESIGN TOKENS & RESET
+       APPLE DESIGN SYSTEM: TOKENS & FOUNDATIONS
        ========================================================= */
     :root {{
-      --navy-950: #040e18;
-      --navy-900: #081827;
-      --navy-850: #0c2135;
-      --navy-800: #102b45;
-      --navy-700: #193e62;
-      --navy-600: #235280;
+      /* System Palette */
+      --apple-bg: #f5f5f7;
+      --apple-card: #ffffff;
+      --apple-card-hover: #fafafa;
+      --apple-border: rgba(0, 0, 0, 0.08);
+      --apple-border-light: rgba(0, 0, 0, 0.05);
+      --apple-border-strong: rgba(0, 0, 0, 0.14);
+      --apple-scrim: rgba(0, 0, 0, 0.36);
       
-      --teal-600: #0891b2;
-      --teal-500: #06b6d4;
-      --teal-400: #22d3ee;
-      --teal-100: #cffafe;
-      --teal-50: #ecfeff;
+      --text-primary: #1d1d1f;
+      --text-secondary: #48484a;
+      --text-muted: #86868b;
+      --text-tertiary: #aeaeb2;
       
-      --paper: #f1f5f9;
-      --paper-card: #ffffff;
-      --border: #e2e8f0;
-      --border-dark: #cbd5e1;
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #64748b;
+      /* Apple System Accents */
+      --blue: #0071e3;
+      --blue-hover: #0077ed;
+      --blue-subtle: rgba(0, 113, 227, 0.08);
+      --blue-border: rgba(0, 113, 227, 0.2);
       
+      --red: #ff3b30;
+      --red-dark: #dc2626;
+      --red-subtle: #fef2f2;
+      --red-border: #fca5a5;
+      
+      --orange: #ff9500;
+      --orange-dark: #ea580c;
+      --orange-subtle: #fff7ed;
+      --orange-border: #fed7aa;
+      
+      --yellow: #ffcc00;
+      --yellow-dark: #d97706;
+      --yellow-subtle: #fffbeb;
+      --yellow-border: #fef08a;
+      
+      --green: #34c759;
+      --green-dark: #16a34a;
+      --green-subtle: #f0fdf4;
+      --green-border: #bbf7d0;
+      
+      --teal: #0891b2;
+      --teal-subtle: rgba(8, 145, 178, 0.08);
+      --teal-border: rgba(8, 145, 178, 0.25);
+      
+      --indigo: #4f46e5;
+      
+      /* Risk Tier Tokens */
       --risk-low: #16a34a;
-      --risk-moderate: #d97706;
-      --risk-high: #ea580c;
-      --risk-severe: #dc2626;
       --risk-low-bg: #f0fdf4;
+      --risk-low-border: #bbf7d0;
+      
+      --risk-moderate: #d97706;
       --risk-moderate-bg: #fffbeb;
+      --risk-moderate-border: #fef08a;
+      
+      --risk-high: #ea580c;
       --risk-high-bg: #fff7ed;
+      --risk-high-border: #fed7aa;
+      
+      --risk-severe: #dc2626;
       --risk-severe-bg: #fef2f2;
+      --risk-severe-border: #fca5a5;
       
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-      --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      /* Apple Layer Materials & Translucency */
+      --glass-bg: rgba(255, 255, 255, 0.82);
+      --glass-blur: blur(20px) saturate(180%);
+      --glass-border: rgba(255, 255, 255, 0.6);
       
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
+      --glass-hud: rgba(255, 255, 255, 0.92);
+      --glass-hud-blur: blur(24px) saturate(180%);
+      
+      /* Apple Elevation Shadows */
+      --shadow-ambient: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.02);
+      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+      --shadow-floating: 0 12px 32px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+      --shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.18), 0 4px 16px rgba(0, 0, 0, 0.06);
+      
+      /* Radii */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
       --radius-full: 9999px;
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      
+      /* Spring Motion Curves */
+      --spring-settle: cubic-bezier(0.16, 1, 0.3, 1);
+      --spring-snappy: cubic-bezier(0.2, 0.8, 0.2, 1);
+      
+      /* Typography */
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif;
     }}
 
+    /* Global Reset */
     *, *::before, *::after {{
       box-sizing: border-box;
       margin: 0;
@@ -109,10 +159,11 @@ def build_app():
       width: 100%;
       height: 100%;
       font-family: var(--font);
-      background-color: var(--paper);
+      background-color: var(--apple-bg);
       color: var(--text-primary);
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }}
 
     .num-tnum {{
@@ -121,10 +172,11 @@ def build_app():
     }}
 
     :focus-visible {{
-      outline: 2px solid var(--teal-500);
+      outline: 2px solid var(--blue);
       outline-offset: 2px;
     }}
 
+    /* Vector SVG Icons */
     .svg-icon {{
       width: 16px;
       height: 16px;
@@ -141,10 +193,32 @@ def build_app():
     .eyebrow {{
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--teal-600);
+      color: var(--teal);
       display: inline-block;
+    }}
+
+    /* Tactile Press Rule: Instant response on pointer-down */
+    button:active,
+    .role-btn:active,
+    .btn-submit:active,
+    .role-switch-btn:active,
+    .btn-role-action:active,
+    .btn-mini-action:active,
+    .btn-action:active,
+    .btn-fire-emergency-hero:active,
+    .btn-hose-calc-rail:active,
+    .btn-open-modal-large:active,
+    .modal-close-btn:active,
+    .btn-gps-locate:active,
+    .style-btn-pill:active,
+    .btn-expand-map:active,
+    .btn-fire-simulate-header:active,
+    .btn-sim-action:active,
+    .btn-sim-speed:active {{
+      transform: scale(0.97);
+      transition: transform 80ms ease-out;
     }}
 
     /* =========================================================
@@ -163,7 +237,7 @@ def build_app():
       display: flex;
       flex-direction: row;
       z-index: 2000;
-      background: var(--navy-900);
+      background: #0f172a;
     }}
 
     #login-screen.hidden {{
@@ -176,7 +250,7 @@ def build_app():
       display: none;
       flex-direction: column;
       z-index: 100;
-      background: var(--paper);
+      background: var(--apple-bg);
     }}
 
     #app-screen.active {{
@@ -184,11 +258,11 @@ def build_app():
     }}
 
     /* =========================================================
-       1. LOGIN SCREEN WITH REALISTIC EMBLEM LOGO
+       1. LOGIN SCREEN WITH AUTHENTIC PRO HERO
        ========================================================= */
     .login-hero {{
       flex: 1.15;
-      background: linear-gradient(155deg, var(--navy-950) 0%, var(--navy-900) 45%, var(--navy-800) 100%);
+      background: radial-gradient(circle at 80% 20%, #1e293b 0%, #0f172a 60%, #020617 100%);
       padding: 48px;
       display: flex;
       flex-direction: column;
@@ -196,7 +270,7 @@ def build_app():
       color: #ffffff;
       position: relative;
       overflow: hidden;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
     }}
 
     .login-hero::before {{
@@ -206,7 +280,7 @@ def build_app():
       right: -15%;
       width: 480px;
       height: 480px;
-      background: radial-gradient(circle, rgba(6, 182, 212, 0.22) 0%, rgba(6, 182, 212, 0) 70%);
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, rgba(14, 165, 233, 0) 70%);
       border-radius: 50%;
       pointer-events: none;
     }}
@@ -218,23 +292,25 @@ def build_app():
     }}
 
     .hero-logo-img {{
-      width: 54px;
-      height: 54px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      border: 2px solid #7dd3fc;
-      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 16px rgba(14, 165, 233, 0.35);
       object-fit: cover;
     }}
 
     .hero-badge {{
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 5px 14px;
       border-radius: var(--radius-full);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.05em;
       color: #7dd3fc;
+      display: inline-block;
+      margin-bottom: 12px;
     }}
 
     .hero-center {{
@@ -243,41 +319,43 @@ def build_app():
     }}
 
     .hero-title {{
-      font-size: 36px;
-      line-height: 1.22;
+      font-size: 34px;
+      line-height: 1.2;
       font-weight: 800;
       margin-bottom: 14px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
       color: #ffffff;
     }}
 
     .hero-subtitle {{
       font-size: 15px;
       line-height: 1.6;
-      color: #cbd5e1;
+      color: #94a3b8;
       margin-bottom: 26px;
     }}
 
     .hero-scale {{
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: var(--radius-md);
       padding: 16px 20px;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(12px);
     }}
 
     .hero-scale-header {{
       display: flex;
       justify-content: space-between;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       color: #94a3b8;
+      letter-spacing: 0.04em;
       margin-bottom: 8px;
     }}
 
     .scale-bar {{
-      height: 10px;
-      border-radius: 5px;
+      height: 8px;
+      border-radius: 4px;
       background: linear-gradient(to right, #16a34a 0%, #d97706 35%, #ea580c 65%, #dc2626 100%);
       margin-bottom: 8px;
     }}
@@ -297,28 +375,29 @@ def build_app():
     .hero-stats {{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 14px;
     }}
 
     .stat-pill {{
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-md);
-      padding: 14px 16px;
+      padding: 12px 16px;
+      backdrop-filter: blur(8px);
     }}
 
     .stat-pill-val {{
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       letter-spacing: -0.02em;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       color: #ffffff;
     }}
 
     .stat-pill-label {{
-      font-size: 12px;
+      font-size: 11px;
       color: #94a3b8;
-      font-weight: 500;
+      font-weight: 600;
     }}
 
     .hero-footer {{
@@ -328,7 +407,7 @@ def build_app():
       justify-content: space-between;
       align-items: center;
       padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }}
 
     /* Login Form Right Panel */
@@ -344,29 +423,29 @@ def build_app():
 
     .login-box {{
       width: 100%;
-      max-width: 440px;
+      max-width: 420px;
     }}
 
     .login-heading {{
       font-size: 24px;
       font-weight: 800;
-      color: var(--navy-900);
-      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
       margin-bottom: 6px;
     }}
 
     .login-subheading {{
       font-size: 14px;
       color: var(--text-secondary);
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       line-height: 1.5;
     }}
 
     .login-error {{
-      background: #fef2f2;
-      border: 1px solid #fecaca;
+      background: var(--red-subtle);
+      border: 1px solid var(--red-border);
       color: #991b1b;
-      padding: 12px 14px;
+      padding: 11px 14px;
       border-radius: var(--radius-sm);
       font-size: 13px;
       font-weight: 500;
@@ -376,13 +455,13 @@ def build_app():
     }}
 
     .quick-login-section {{
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }}
 
     .quick-login-title {{
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: block;
-      color: var(--teal-600);
+      color: var(--teal);
     }}
 
     .quick-roles-grid {{
@@ -396,20 +475,21 @@ def build_app():
       align-items: center;
       gap: 10px;
       padding: 10px 12px;
-      background: #f8fafc;
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid var(--apple-border);
       border-radius: var(--radius-md);
       cursor: pointer;
       text-align: left;
-      transition: all 0.15s ease;
+      transition: all 0.18s var(--spring-settle);
       font-family: inherit;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }}
 
     .role-btn:hover {{
-      background: #f1f5f9;
-      border-color: var(--teal-600);
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.16);
       transform: translateY(-1px);
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-card);
     }}
 
     .avatar-initials {{
@@ -449,16 +529,16 @@ def build_app():
     .btn-guest-bypass {{
       width: 100%;
       margin-top: 10px;
-      padding: 10px;
-      background: #f0fdf4;
-      border: 1px dashed #22c55e;
+      padding: 9px;
+      background: var(--green-subtle);
+      border: 1px solid var(--green-border);
       color: #15803d;
       font-size: 12px;
       font-weight: 700;
       border-radius: var(--radius-sm);
       cursor: pointer;
       text-align: center;
-      transition: all 0.15s ease;
+      transition: all 0.18s var(--spring-settle);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -467,14 +547,14 @@ def build_app():
 
     .btn-guest-bypass:hover {{
       background: #dcfce7;
-      border-color: #16a34a;
+      border-color: #86efac;
     }}
 
     .login-divider {{
       display: flex;
       align-items: center;
       text-align: center;
-      margin: 20px 0;
+      margin: 18px 0;
       color: var(--text-muted);
       font-size: 11px;
       font-weight: 600;
@@ -486,7 +566,7 @@ def build_app():
     .login-divider::after {{
       content: "";
       flex: 1;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--apple-border);
     }}
 
     .login-divider span {{
@@ -494,7 +574,7 @@ def build_app():
     }}
 
     .form-group {{
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }}
 
     .form-label {{
@@ -507,8 +587,8 @@ def build_app():
 
     .form-input {{
       width: 100%;
-      padding: 10px 14px;
-      border: 1px solid var(--border-dark);
+      padding: 9px 12px;
+      border: 1px solid var(--apple-border-strong);
       border-radius: var(--radius-sm);
       font-size: 14px;
       font-family: inherit;
@@ -519,14 +599,14 @@ def build_app():
 
     .form-input:focus {{
       outline: none;
-      border-color: var(--teal-600);
-      box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
     }}
 
     .btn-submit {{
       width: 100%;
-      padding: 12px;
-      background: var(--navy-850);
+      padding: 11px;
+      background: #0f172a;
       color: #ffffff;
       border: none;
       border-radius: var(--radius-sm);
@@ -534,7 +614,7 @@ def build_app():
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
-      transition: background 0.15s ease, transform 0.1s ease;
+      transition: background 0.15s ease;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -542,18 +622,14 @@ def build_app():
     }}
 
     .btn-submit:hover {{
-      background: var(--navy-700);
-    }}
-
-    .btn-submit:active {{
-      transform: translateY(1px);
+      background: #1e293b;
     }}
 
     .demo-notice {{
-      margin-top: 18px;
-      padding: 12px 14px;
+      margin-top: 16px;
+      padding: 11px 13px;
       background: #f8fafc;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
       border-radius: var(--radius-sm);
       font-size: 12px;
       line-height: 1.5;
@@ -561,88 +637,152 @@ def build_app():
     }}
 
     /* =========================================================
-       2. TOP BAR & USER DETAILS
+       2. TOP BAR & USER DETAILS (TRANSLUCENT APPLE MATERIAL)
        ========================================================= */
     .top-bar {{
-      height: 58px;
-      background: var(--navy-900);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      height: 56px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border-bottom: 1px solid var(--apple-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 24px;
-      color: #ffffff;
+      color: var(--text-primary);
       flex-shrink: 0;
       z-index: 1300;
+      position: sticky;
+      top: 0;
     }}
 
     .top-bar-left {{
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }}
 
     .app-brand {{
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
-      color: #ffffff;
+      color: var(--text-primary);
     }}
 
     .app-logo-badge {{
-      width: 38px;
-      height: 38px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      border: 2px solid #7dd3fc;
-      box-shadow: 0 2px 8px rgba(6, 182, 212, 0.4);
+      border: 1.5px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
       object-fit: cover;
     }}
 
     .app-brand-title {{
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
-      letter-spacing: -0.01em;
-      color: #ffffff;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
     }}
 
     .app-sub-badge {{
       font-size: 11px;
       font-weight: 700;
-      background: rgba(8, 145, 178, 0.35);
-      border: 1px solid rgba(8, 145, 178, 0.6);
+      background: var(--teal-subtle);
+      border: 1px solid var(--teal-border);
       padding: 3px 10px;
       border-radius: var(--radius-full);
-      color: #7dd3fc;
-      letter-spacing: 0.03em;
+      color: var(--teal);
+      letter-spacing: 0.02em;
+    }}
+
+    .top-bar-center-roles {{
+      display: flex;
+      align-items: center;
+    }}
+
+    /* Apple-Grade Segmented Capsule Role Switcher */
+    .role-switcher-segmented {{
+      display: flex;
+      align-items: center;
+      background: rgba(118, 118, 128, 0.09);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 2px;
+    }}
+
+    .role-switch-btn {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-full);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s var(--spring-settle);
+      user-select: none;
+    }}
+
+    .role-switch-btn:hover {{
+      color: var(--text-primary);
+      background: rgba(0, 0, 0, 0.03);
+    }}
+
+    .role-switch-btn.active {{
+      background: #ffffff;
+      color: var(--text-primary);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.08);
+      font-weight: 800;
+    }}
+
+    .role-switch-btn.active.fire {{
+      color: var(--red-dark);
+    }}
+
+    .role-switch-btn.active.planner {{
+      color: var(--teal);
+    }}
+
+    .role-switch-btn.active.surveyor {{
+      color: var(--green-dark);
+    }}
+
+    .role-switch-btn.active.admin {{
+      color: var(--indigo);
     }}
 
     .top-bar-right {{
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }}
 
     .user-profile-pill {{
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 4px 14px 4px 6px;
+      gap: 9px;
+      background: rgba(0, 0, 0, 0.03);
+      padding: 3px 12px 3px 4px;
       border-radius: var(--radius-full);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--apple-border);
     }}
 
     .user-avatar {{
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: var(--teal-600);
+      background: var(--teal);
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
     }}
 
@@ -655,48 +795,49 @@ def build_app():
     .user-name {{
       font-size: 12px;
       font-weight: 700;
-      color: #f8fafc;
+      color: var(--text-primary);
     }}
 
     .user-role {{
       font-size: 10px;
-      color: #94a3b8;
+      color: var(--text-muted);
       font-weight: 600;
     }}
 
     .btn-signout {{
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #cbd5e1;
-      padding: 6px 12px;
+      border: 1px solid var(--apple-border-strong);
+      color: var(--text-secondary);
+      padding: 5px 11px;
       border-radius: var(--radius-sm);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.15s var(--spring-settle);
     }}
 
     .btn-signout:hover {{
-      background: rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.35);
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-primary);
+      border-color: rgba(0, 0, 0, 0.2);
     }}
 
     /* =========================================================
-       3. KPI STRIP
+       3. KPI STRIP (FROSTED SUB-BAR)
        ========================================================= */
     .kpi-strip {{
-      height: 48px;
-      background: #ffffff;
-      border-bottom: 1px solid var(--border);
+      height: 44px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--apple-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 24px;
       flex-shrink: 0;
-      box-shadow: var(--shadow-sm);
-      z-index: 1100;
+      z-index: 1200;
     }}
 
     .kpi-group {{
@@ -716,14 +857,14 @@ def build_app():
       color: var(--text-muted);
       font-weight: 600;
       text-transform: uppercase;
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 0.04em;
     }}
 
     .kpi-value {{
       font-weight: 800;
       color: var(--text-primary);
-      font-size: 14px;
+      font-size: 13px;
     }}
 
     .kpi-badge {{
@@ -738,7 +879,7 @@ def build_app():
     .kpi-badge.severe {{
       background: var(--risk-severe-bg);
       color: var(--risk-severe);
-      border: 1px solid #fca5a5;
+      border: 1px solid var(--risk-severe-border);
     }}
 
     .kpi-badge.incident {{
@@ -756,15 +897,108 @@ def build_app():
     }}
 
     /* =========================================================
+       ROLE MISSION CONTEXT BANNER
+       ========================================================= */
+    .role-mission-banner {{
+      background: #ffffff;
+      border-bottom: 1px solid var(--apple-border);
+      padding: 9px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-shrink: 0;
+    }}
+
+    .role-mission-left {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }}
+
+    .role-mission-tag {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }}
+
+    .role-mission-desc {{
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      line-height: 1.45;
+    }}
+
+    .role-mission-actions {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }}
+
+    .btn-role-action {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s var(--spring-settle);
+      white-space: nowrap;
+    }}
+
+    .btn-role-action.primary {{
+      background: var(--teal);
+      color: #ffffff;
+      box-shadow: 0 1px 3px rgba(8, 145, 178, 0.2);
+    }}
+    .btn-role-action.primary:hover {{
+      background: #0e7490;
+    }}
+
+    .btn-role-action.fire-red {{
+      background: var(--red-dark);
+      color: #ffffff;
+      box-shadow: 0 1px 4px rgba(220, 38, 38, 0.25);
+    }}
+    .btn-role-action.fire-red:hover {{
+      background: #b91c1c;
+    }}
+
+    .btn-role-action.outline {{
+      background: #ffffff;
+      border-color: var(--apple-border-strong);
+      color: var(--text-primary);
+    }}
+    .btn-role-action.outline:hover {{
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.2);
+    }}
+
+    /* =========================================================
        4. SCROLLABLE DASHBOARD BODY (UNIFIED PAGE LAYOUT)
        ========================================================= */
     .dashboard-scroll-body {{
       flex: 1;
       overflow-y: auto;
-      padding: 24px;
+      padding: 20px 24px 40px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 24px;
+      background: var(--apple-bg);
     }}
 
     /* Top Row: Square-shaped Map + Controls Grid */
@@ -781,30 +1015,32 @@ def build_app():
       gap: 16px;
     }}
 
-    /* Big Spacious Map Card on the Right Side */
+    /* Big Spacious Map Card on the Right Side (Apple Toolbar) */
     .map-widget-card {{
       background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      border: 1px solid var(--apple-border);
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-ambient);
       display: flex;
       flex-direction: column;
       height: 750px;
       min-height: 750px;
       position: sticky;
       top: 16px;
-      transition: all 0.3s ease;
+      transition: all 0.3s var(--spring-settle);
     }}
 
     .map-widget-header {{
-      padding: 12px 16px;
-      background: var(--navy-900);
-      color: #ffffff;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--apple-border);
     }}
 
     .map-widget-title-wrap {{
@@ -816,98 +1052,185 @@ def build_app():
     .map-widget-title {{
       font-size: 13px;
       font-weight: 800;
-      letter-spacing: 0.02em;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }}
+
+    .map-badge-count {{
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 2px 8px;
+      border-radius: 6px;
+      color: var(--text-secondary);
     }}
 
     .map-widget-header-actions {{
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }}
 
     .style-btn-pill {{
       padding: 4px 8px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #cbd5e1;
-      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--apple-border);
+      color: var(--text-secondary);
+      border-radius: 6px;
       font-size: 11px;
       font-weight: 600;
       cursor: pointer;
       font-family: inherit;
+      transition: all 0.15s var(--spring-settle);
     }}
 
     .style-btn-pill:hover {{
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.2);
+      color: var(--text-primary);
+      background: rgba(0, 0, 0, 0.08);
     }}
 
     .style-btn-pill.active {{
-      background: var(--teal-600);
+      background: #1d1d1f;
       color: #ffffff;
-      border-color: var(--teal-500);
+      border-color: #1d1d1f;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }}
+
+    .btn-fire-simulate-header {{
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      background: var(--red-dark);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(220, 38, 38, 0.25);
+      transition: background 0.15s ease;
+    }}
+
+    .btn-fire-simulate-header:hover {{
+      background: #b91c1c;
     }}
 
     .btn-expand-map {{
-      padding: 5px 10px;
-      background: var(--teal-600);
-      color: #ffffff;
-      border: none;
-      border-radius: 4px;
+      padding: 4px 9px;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--apple-border);
+      color: var(--text-primary);
+      border-radius: 6px;
       font-size: 11px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 5px;
-      transition: background 0.15s ease;
+      transition: all 0.15s var(--spring-settle);
     }}
 
     .btn-expand-map:hover {{
-      background: var(--teal-500);
+      background: rgba(0, 0, 0, 0.08);
     }}
 
     /* Big Map Viewport on Right Side */
     #map-container {{
       width: 100%;
-      height: calc(750px - 49px - 41px);
-      min-height: calc(750px - 49px - 41px);
+      height: calc(750px - 45px - 37px);
+      min-height: calc(750px - 45px - 37px);
       background: #e2e8f0;
       position: relative;
     }}
 
-    /* Analytics Rail Card (Left Column) */
-    .analytics-rail-card {{
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      box-shadow: var(--shadow-sm);
+    .map-widget-footer {{
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--apple-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
     }}
 
+    .map-footer-legend {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
+
+    .legend-dot-item {{
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 600;
+    }}
+
+    .legend-dot {{
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }}
+
+    /* Expanded Big Map Mode */
+    .map-widget-card.expanded {{
+      position: fixed !important;
+      inset: 20px !important;
+      z-index: 2800 !important;
+      height: calc(100vh - 40px) !important;
+      max-height: calc(100vh - 40px) !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
+      border-radius: var(--radius-xl) !important;
+    }}
+
+    .map-widget-card.expanded #map-container {{
+      height: calc(100vh - 40px - 45px - 37px) !important;
+      min-height: calc(100vh - 40px - 45px - 37px) !important;
+    }}
+
+    /* =========================================================
+       APPLE CARDS: LEFT COLUMN (RAIL, PREVIEW, FILTERS)
+       ========================================================= */
+    .analytics-rail-card,
+    .preview-card,
+    .filter-controls-card,
+    .dash-card,
+    .ahp-tuner-card {{
+      background: #ffffff;
+      border: 1px solid var(--apple-border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-ambient);
+    }}
+
+    /* Analytics Rail Card */
     .rail-card-header {{
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 12px;
       padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--apple-border);
     }}
 
     .rail-card-title {{
       font-size: 14px;
       font-weight: 800;
-      color: var(--navy-900);
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
       margin-top: 2px;
     }}
 
     .rail-total-badge {{
       font-size: 11px;
       font-weight: 800;
-      background: #f1f5f9;
-      color: var(--navy-900);
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-primary);
       padding: 3px 8px;
-      border-radius: var(--radius-sm);
+      border-radius: 6px;
     }}
 
     .rail-stat-section {{
@@ -928,7 +1251,7 @@ def build_app():
 
     .rail-segmented-bar {{
       display: flex;
-      height: 8px;
+      height: 7px;
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 7px;
@@ -948,10 +1271,10 @@ def build_app():
       font-size: 10px;
       font-weight: 700;
       padding: 2px 6px;
-      border-radius: 4px;
+      border-radius: 5px;
       background: #f8fafc;
-      border: 1px solid var(--border);
-      color: var(--navy-900);
+      border: 1px solid var(--apple-border);
+      color: var(--text-primary);
     }}
 
     .chip-dot {{
@@ -963,15 +1286,15 @@ def build_app():
     .rail-locality-list {{
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
     }}
 
     .rail-locality-row {{
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 3px 6px;
-      border-radius: var(--radius-sm);
+      padding: 4px 6px;
+      border-radius: 6px;
       cursor: pointer;
       transition: background 0.15s ease;
     }}
@@ -983,7 +1306,7 @@ def build_app():
     .rail-loc-name {{
       font-size: 11px;
       font-weight: 700;
-      color: var(--navy-900);
+      color: var(--text-primary);
       width: 95px;
       white-space: nowrap;
     }}
@@ -1040,77 +1363,11 @@ def build_app():
       border-radius: 2px;
     }}
 
-    .map-badge-count {{
-      font-size: 11px;
-      font-weight: 700;
-      background: rgba(255, 255, 255, 0.12);
-      padding: 3px 8px;
-      border-radius: 4px;
-      color: #7dd3fc;
-    }}
-
-    /* Expanded Big Map Mode */
-    .map-widget-card.expanded {{
-      position: fixed !important;
-      inset: 20px !important;
-      z-index: 2800 !important;
-      height: calc(100vh - 40px) !important;
-      max-height: calc(100vh - 40px) !important;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5) !important;
-    }}
-
-    .map-widget-card.expanded #map-container {{
-      height: calc(100vh - 40px - 48px - 40px) !important;
-      min-height: calc(100vh - 40px - 48px - 40px) !important;
-    }}
-
-    .map-widget-footer {{
-      padding: 10px 16px;
-      background: #f8fafc;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 11px;
-      color: var(--text-secondary);
-    }}
-
-    .map-footer-legend {{
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }}
-
-    .legend-dot-item {{
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-weight: 600;
-    }}
-
-    .legend-dot {{
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }}
-
-    /* Side Control & Preview Column */
-    .side-control-column {{
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }}
-
-    /* Quick Workshop Inspector Card */
+    /* Preview Card (Selected Unit Inspector) */
     .preview-card {{
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 18px;
-      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 13px;
     }}
 
     .preview-header {{
@@ -1120,30 +1377,31 @@ def build_app():
     }}
 
     .preview-title {{
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
-      color: var(--navy-900);
-      margin-top: 4px;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-top: 3px;
     }}
 
     .preview-score-badge {{
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 12px;
+      padding: 6px 12px;
       border-radius: var(--radius-md);
       background: #f8fafc;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
     }}
 
     .preview-score-num {{
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
     }}
 
     .preview-deficiency-box {{
-      background: #fffbeb;
-      border: 1px solid #fde68a;
+      background: var(--yellow-subtle);
+      border: 1px solid var(--yellow-border);
       border-radius: var(--radius-sm);
       padding: 10px 14px;
       font-size: 12px;
@@ -1153,12 +1411,12 @@ def build_app():
 
     .btn-open-modal-large {{
       width: 100%;
-      padding: 11px;
-      background: var(--navy-850);
+      padding: 10px;
+      background: #0f172a;
       color: #ffffff;
       border: none;
       border-radius: var(--radius-sm);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
@@ -1166,11 +1424,56 @@ def build_app():
       align-items: center;
       justify-content: center;
       gap: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       transition: background 0.15s ease;
     }}
 
     .btn-open-modal-large:hover {{
-      background: var(--teal-600);
+      background: var(--teal);
+    }}
+
+    .btn-fire-emergency-hero {{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: var(--red-dark);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+      transition: background 0.15s ease;
+    }}
+
+    .btn-fire-emergency-hero:hover {{
+      background: #b91c1c;
+    }}
+
+    .btn-hose-calc-rail {{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--green-subtle);
+      color: #15803d;
+      border: 1px solid var(--green-border);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }}
+
+    .btn-hose-calc-rail:hover {{
+      background: #dcfce7;
+      border-color: #86efac;
     }}
 
     .preview-route-actions {{
@@ -1181,8 +1484,8 @@ def build_app():
 
     .btn-mini-action {{
       padding: 7px 8px;
-      background: #f8fafc;
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid var(--apple-border-strong);
       border-radius: var(--radius-sm);
       font-size: 11px;
       font-weight: 700;
@@ -1193,33 +1496,29 @@ def build_app():
       justify-content: center;
       gap: 5px;
       color: var(--text-primary);
+      transition: all 0.15s ease;
     }}
 
     .btn-mini-action:hover {{
-      background: #f1f5f9;
-      border-color: var(--border-dark);
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.2);
     }}
 
     /* Filter Controls Card */
     .filter-controls-card {{
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 18px;
-      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }}
 
     .filter-control-group {{
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }}
 
     .filter-label {{
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -1232,12 +1531,20 @@ def build_app():
 
     .search-input {{
       width: 100%;
-      padding: 9px 32px 9px 34px;
-      border: 1px solid var(--border-dark);
+      padding: 8px 30px 8px 32px;
+      border: 1px solid var(--apple-border-strong);
       border-radius: var(--radius-sm);
       font-size: 13px;
       font-family: inherit;
       color: var(--text-primary);
+      background: #ffffff;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }}
+
+    .search-input:focus {{
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
     }}
 
     .search-icon {{
@@ -1265,13 +1572,19 @@ def build_app():
 
     .locality-select {{
       width: 100%;
-      padding: 8px 12px;
-      border: 1px solid var(--border-dark);
+      padding: 8px 10px;
+      border: 1px solid var(--apple-border-strong);
       border-radius: var(--radius-sm);
-      font-size: 13px;
+      font-size: 12px;
       font-family: inherit;
       color: var(--text-primary);
       background: #ffffff;
+      cursor: pointer;
+    }}
+
+    .locality-select:focus {{
+      outline: none;
+      border-color: var(--blue);
     }}
 
     .tier-pills-row {{
@@ -1284,9 +1597,9 @@ def build_app():
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 6px 8px;
+      padding: 5px 7px;
       background: #f8fafc;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
       border-radius: var(--radius-sm);
       cursor: pointer;
       font-size: 11px;
@@ -1294,31 +1607,33 @@ def build_app():
     }}
 
     .tier-check-pill input {{
-      margin-right: 4px;
+      margin-right: 3px;
     }}
 
     .layer-switches-row {{
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      font-size: 12px;
+      gap: 10px;
+      font-size: 11px;
     }}
 
     .mini-switch-label {{
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       cursor: pointer;
+      color: var(--text-secondary);
+      font-weight: 600;
     }}
 
     .btn-gps-locate {{
       width: 100%;
-      padding: 9px;
-      background: #f0fdf4;
-      border: 1px solid #86efac;
+      padding: 8px;
+      background: var(--green-subtle);
+      border: 1px solid var(--green-border);
       color: #166534;
       border-radius: var(--radius-sm);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
@@ -1326,6 +1641,7 @@ def build_app():
       align-items: center;
       justify-content: center;
       gap: 6px;
+      transition: background 0.15s ease;
     }}
 
     .btn-gps-locate:hover {{
@@ -1338,61 +1654,51 @@ def build_app():
     .dashboard-lower-section {{
       display: flex;
       flex-direction: column;
-      gap: 24px;
-      margin-top: 8px;
+      gap: 20px;
+      margin-top: 4px;
     }}
 
     .section-headline {{
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 10px;
+      border-bottom: 1px solid var(--apple-border);
+      padding-bottom: 8px;
     }}
 
     .section-title {{
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
-      color: var(--navy-900);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      letter-spacing: -0.015em;
     }}
 
     .analytics-grid-row {{
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }}
-
-    .dash-card {{
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
+      gap: 20px;
     }}
 
     .dash-card-header {{
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }}
 
     .dash-card-title {{
       font-size: 13px;
       font-weight: 800;
-      color: var(--navy-900);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
     }}
 
     .segmented-bar {{
-      height: 24px;
-      border-radius: var(--radius-sm);
+      height: 20px;
+      border-radius: 6px;
       overflow: hidden;
       display: flex;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }}
 
     .seg-slice {{
@@ -1409,36 +1715,37 @@ def build_app():
     .seg-item {{
       display: flex;
       flex-direction: column;
-      font-size: 12px;
+      font-size: 11px;
     }}
 
     .seg-item strong {{
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
+      margin-top: 2px;
     }}
 
     .loc-bar-list {{
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }}
 
     .loc-bar-row {{
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }}
 
     .loc-bar-label {{
       display: flex;
       justify-content: space-between;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
     }}
 
     .loc-bar-meter {{
-      height: 8px;
-      background: #e2e8f0;
+      height: 7px;
+      background: #f1f5f9;
       border-radius: 4px;
       overflow: hidden;
     }}
@@ -1456,12 +1763,12 @@ def build_app():
 
     .problem-card {{
       background: #f8fafc;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
       border-radius: var(--radius-sm);
       padding: 12px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }}
 
     .problem-top {{
@@ -1471,8 +1778,8 @@ def build_app():
     }}
 
     .scope-tag {{
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 9px;
+      font-weight: 800;
       text-transform: uppercase;
       padding: 2px 6px;
       border-radius: var(--radius-full);
@@ -1481,7 +1788,7 @@ def build_app():
     .scope-tag.outside {{ background: #fef3c7; color: #b45309; }}
 
     .problem-name {{
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-primary);
     }}
@@ -1493,7 +1800,7 @@ def build_app():
     }}
 
     .problem-pct {{
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--risk-severe);
     }}
@@ -1501,6 +1808,7 @@ def build_app():
     .table-container {{
       overflow-x: auto;
       max-height: 480px;
+      border-radius: var(--radius-sm);
     }}
 
     .master-table {{
@@ -1514,8 +1822,11 @@ def build_app():
       background: #f8fafc;
       padding: 10px 14px;
       font-weight: 700;
-      color: var(--text-secondary);
-      border-bottom: 2px solid var(--border);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--apple-border);
       position: sticky;
       top: 0;
       z-index: 10;
@@ -1524,17 +1835,17 @@ def build_app():
     }}
 
     .master-table th:hover {{
-      color: var(--navy-900);
+      color: var(--text-primary);
     }}
 
     .master-table td {{
       padding: 10px 14px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--apple-border-light);
       color: var(--text-primary);
     }}
 
     .master-table tr:hover {{
-      background: #f1f5f9;
+      background: #f8fafc;
       cursor: pointer;
     }}
 
@@ -1546,38 +1857,129 @@ def build_app():
       font-size: 11px;
     }}
 
-    .badge-tier.Severe {{ background: var(--risk-severe-bg); color: var(--risk-severe); }}
-    .badge-tier.High {{ background: var(--risk-high-bg); color: var(--risk-high); }}
-    .badge-tier.Moderate {{ background: var(--risk-moderate-bg); color: var(--risk-moderate); }}
-    .badge-tier.Low {{ background: var(--risk-low-bg); color: var(--risk-low); }}
+    .badge-tier.Severe {{ background: var(--risk-severe-bg); color: var(--risk-severe); border: 1px solid var(--risk-severe-border); }}
+    .badge-tier.High {{ background: var(--risk-high-bg); color: var(--risk-high); border: 1px solid var(--risk-high-border); }}
+    .badge-tier.Moderate {{ background: var(--risk-moderate-bg); color: var(--risk-moderate); border: 1px solid var(--risk-moderate-border); }}
+    .badge-tier.Low {{ background: var(--risk-low-bg); color: var(--risk-low); border: 1px solid var(--risk-low-border); }}
 
     .btn-view-map {{
-      padding: 5px 10px;
-      background: var(--navy-850);
+      padding: 4px 9px;
+      background: #0f172a;
       color: #ffffff;
       border: none;
-      border-radius: var(--radius-sm);
+      border-radius: 6px;
       font-size: 11px;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      transition: background 0.15s ease;
     }}
 
     .btn-view-map:hover {{
-      background: var(--teal-600);
+      background: var(--teal);
     }}
 
     /* =========================================================
-       6. CENTERED RECTANGULAR WORKSHOP DETAIL MODAL
+       ROLE-SPECIFIC FUNCTIONAL SECTIONS
+       ========================================================= */
+    .role-specific-section {{
+      display: none;
+      margin-top: 18px;
+    }}
+
+    .role-specific-section.active {{
+      display: block;
+    }}
+
+    /* AHP Weight Tuner */
+    .ahp-slider-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }}
+
+    .ahp-slider-box {{
+      background: #f8fafc;
+      border: 1px solid var(--apple-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }}
+
+    .ahp-box-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }}
+
+    .ahp-box-title {{
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+    }}
+
+    .ahp-box-val {{
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--teal);
+    }}
+
+    .ahp-range-input {{
+      width: 100%;
+      height: 6px;
+      border-radius: 9999px;
+      background: #cbd5e1;
+      outline: none;
+      cursor: pointer;
+    }}
+
+    .policy-box {{
+      background: #f8fafc;
+      border-left: 3px solid var(--teal);
+      padding: 12px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }}
+
+    .preview-stat-card {{
+      background: #f8fafc;
+      border: 1px solid var(--apple-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }}
+
+    .preview-stat-label {{
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }}
+
+    .preview-stat-val {{
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }}
+
+    /* =========================================================
+       6. CENTERED RECTANGULAR WORKSHOP DETAIL MODAL (APPLE SHEET)
        ========================================================= */
     .modal-overlay {{
       position: fixed;
       inset: 0;
-      background: rgba(4, 14, 24, 0.72);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: var(--apple-scrim);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       z-index: 3000;
       display: none;
       align-items: center;
@@ -1591,27 +1993,27 @@ def build_app():
 
     .workshop-modal {{
       background: #ffffff;
-      width: 980px;
-      max-width: 96vw;
+      width: 960px;
+      max-width: 95vw;
       max-height: 88vh;
-      border-radius: 14px;
+      border-radius: var(--radius-xl);
       box-shadow: var(--shadow-modal);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--apple-border);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: appleSpringPop 0.28s var(--spring-settle);
     }}
 
-    @keyframes modalPop {{
-      from {{ opacity: 0; transform: scale(0.96) translateY(10px); }}
+    @keyframes appleSpringPop {{
+      from {{ opacity: 0; transform: scale(0.95) translateY(10px); }}
       to {{ opacity: 1; transform: scale(1) translateY(0); }}
     }}
 
     .modal-header {{
-      padding: 22px 28px;
-      background: #f8fafc;
-      border-bottom: 1px solid var(--border);
+      padding: 20px 26px;
+      background: #fafafa;
+      border-bottom: 1px solid var(--apple-border);
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -1620,38 +2022,38 @@ def build_app():
 
     .modal-header-left {{
       flex: 1;
-      padding-right: 24px;
+      padding-right: 20px;
     }}
 
     .modal-eyebrow-row {{
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }}
 
     .modal-id-pill {{
       font-size: 11px;
       font-weight: 800;
-      background: #e2e8f0;
+      background: rgba(0, 0, 0, 0.06);
       padding: 2px 8px;
-      border-radius: var(--radius-sm);
+      border-radius: 6px;
       color: var(--text-primary);
     }}
 
     .modal-title {{
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 800;
-      color: var(--navy-900);
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+      margin-bottom: 5px;
       line-height: 1.25;
     }}
 
     .modal-meta-row {{
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-size: 13px;
       color: var(--text-secondary);
     }}
@@ -1672,22 +2074,22 @@ def build_app():
     .modal-header-right {{
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }}
 
     .modal-score-card {{
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 10px 16px;
+      gap: 12px;
+      padding: 8px 14px;
       background: #ffffff;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
       border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }}
 
     .modal-score-value {{
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
       line-height: 1;
     }}
@@ -1701,19 +2103,19 @@ def build_app():
     }}
 
     .modal-tier-chip {{
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: var(--radius-full);
     }}
 
     .modal-close-btn {{
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      background: #e2e8f0;
+      background: rgba(0, 0, 0, 0.05);
       border: none;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
@@ -1724,19 +2126,19 @@ def build_app():
     }}
 
     .modal-close-btn:hover {{
-      background: #cbd5e1;
+      background: rgba(0, 0, 0, 0.1);
       color: var(--text-primary);
     }}
 
     .modal-summary-banner {{
-      padding: 14px 28px;
-      background: #fffbeb;
-      border-bottom: 1px solid #fde68a;
+      padding: 12px 26px;
+      background: var(--yellow-subtle);
+      border-bottom: 1px solid var(--yellow-border);
       display: flex;
       align-items: flex-start;
       gap: 12px;
       font-size: 13px;
-      line-height: 1.55;
+      line-height: 1.5;
       color: #92400e;
     }}
 
@@ -1747,7 +2149,7 @@ def build_app():
       background: #fde047;
       color: #713f12;
       padding: 3px 8px;
-      border-radius: 4px;
+      border-radius: 5px;
       flex-shrink: 0;
       letter-spacing: 0.04em;
     }}
@@ -1755,33 +2157,33 @@ def build_app():
     .modal-body {{
       flex: 1;
       overflow-y: auto;
-      padding: 24px 28px;
+      padding: 22px 26px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 28px;
+      gap: 24px;
       background: #ffffff;
     }}
 
     .facts-column {{
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }}
 
     .facts-col-header {{
       padding-bottom: 8px;
-      border-bottom: 2px solid var(--border);
+      border-bottom: 1px solid var(--apple-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }}
 
     .facts-col-title {{
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--navy-900);
+      color: var(--text-primary);
     }}
 
     .facts-col-badge {{
@@ -1793,44 +2195,44 @@ def build_app():
     .facts-card-list {{
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
     }}
 
     .fact-card {{
       background: #f8fafc;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
       border-radius: var(--radius-sm);
-      padding: 12px 14px;
+      padding: 11px 13px;
       transition: all 0.15s ease;
     }}
 
     .fact-card.high-hazard {{
-      border-left: 4px solid var(--risk-severe);
+      border-left: 3.5px solid var(--risk-severe);
     }}
 
     .fact-card.mod-hazard {{
-      border-left: 4px solid var(--risk-moderate);
+      border-left: 3.5px solid var(--risk-moderate);
     }}
 
     .fact-card.low-hazard {{
-      border-left: 4px solid var(--risk-low);
+      border-left: 3.5px solid var(--risk-low);
     }}
 
     .fact-card-top {{
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }}
 
     .fact-title {{
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--text-primary);
     }}
 
     .fact-score-badge {{
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       padding: 2px 7px;
       border-radius: var(--radius-full);
@@ -1841,25 +2243,25 @@ def build_app():
       font-size: 12px;
       line-height: 1.45;
       color: var(--text-secondary);
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }}
 
     .fact-bar-bg {{
-      height: 5px;
-      border-radius: 3px;
+      height: 4px;
+      border-radius: 2px;
       background: #e2e8f0;
       overflow: hidden;
     }}
 
     .fact-bar-fill {{
       height: 100%;
-      border-radius: 3px;
+      border-radius: 2px;
     }}
 
     .modal-footer {{
-      padding: 16px 28px;
-      background: #f8fafc;
-      border-top: 1px solid var(--border);
+      padding: 14px 26px;
+      background: #fafafa;
+      border-top: 1px solid var(--apple-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1868,13 +2270,14 @@ def build_app():
     .modal-actions-left {{
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      flex-wrap: wrap;
     }}
 
     .btn-action {{
-      padding: 9px 14px;
+      padding: 8px 12px;
       border-radius: var(--radius-sm);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
@@ -1882,19 +2285,18 @@ def build_app():
       align-items: center;
       gap: 6px;
       transition: all 0.15s ease;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border-strong);
       background: #ffffff;
       color: var(--text-primary);
     }}
 
     .btn-action:hover {{
       background: #f1f5f9;
-      transform: translateY(-1px);
     }}
 
     .btn-action.fire {{
-      background: #fef2f2;
-      border-color: #fca5a5;
+      background: var(--red-subtle);
+      border-color: var(--red-border);
       color: #b91c1c;
     }}
 
@@ -1905,18 +2307,18 @@ def build_app():
     }}
 
     .btn-modal-dismiss {{
-      padding: 9px 16px;
-      background: #e2e8f0;
+      padding: 8px 15px;
+      background: rgba(0, 0, 0, 0.06);
       border: none;
       border-radius: var(--radius-sm);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
     }}
 
     /* =========================================================
-       7. LIVE EMERGENCY DISPATCH & NAVIGATION CARD (BLINKIT/ZEPTO STYLE)
+       7. LIVE EMERGENCY DISPATCH HUD (APPLE MAPS STYLE)
        ========================================================= */
     #route-card {{
       position: fixed;
@@ -1924,20 +2326,22 @@ def build_app():
       right: 24px;
       width: 410px;
       max-height: 590px;
-      background: #ffffff;
-      border-radius: var(--radius-md);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
-      border: 1px solid var(--border);
+      background: var(--glass-hud);
+      backdrop-filter: var(--glass-hud-blur);
+      -webkit-backdrop-filter: var(--glass-hud-blur);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-floating);
+      border: 1px solid var(--apple-border);
       z-index: 2600;
       display: none;
       flex-direction: column;
       overflow: hidden;
       font-family: var(--font);
-      animation: navSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: appleNavSlideUp 0.32s var(--spring-settle);
     }}
 
-    @keyframes navSlideUp {{
-      from {{ transform: translateY(30px); opacity: 0; }}
+    @keyframes appleNavSlideUp {{
+      from {{ transform: translateY(24px); opacity: 0; }}
       to {{ transform: translateY(0); opacity: 1; }}
     }}
 
@@ -1946,26 +2350,28 @@ def build_app():
     }}
 
     .route-card-header {{
-      padding: 12px 16px;
-      background: var(--navy-900);
-      color: #ffffff;
+      padding: 11px 16px;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid var(--apple-border);
     }}
 
     .route-header-title {{
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 8px;
+      color: var(--text-primary);
     }}
 
     .btn-close-route {{
       background: none;
       border: none;
-      color: #cbd5e1;
+      color: var(--text-muted);
       font-size: 16px;
       cursor: pointer;
       line-height: 1;
@@ -1973,12 +2379,12 @@ def build_app():
     }}
 
     .btn-close-route:hover {{
-      color: #ffffff;
+      color: var(--text-primary);
     }}
 
     .live-pulse-dot {{
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #22c55e;
       box-shadow: 0 0 8px #22c55e;
@@ -1993,7 +2399,7 @@ def build_app():
 
     .route-incident-strip {{
       padding: 8px 14px;
-      background: #fef2f2;
+      background: var(--red-subtle);
       border-bottom: 1px solid #fee2e2;
       display: flex;
       justify-content: space-between;
@@ -2014,7 +2420,7 @@ def build_app():
     .route-target-name {{
       font-size: 11px;
       font-weight: 700;
-      color: var(--navy-900);
+      color: var(--text-primary);
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -2023,10 +2429,11 @@ def build_app():
     /* Vehicle Dispatch Selector Tabs */
     .nav-vehicle-tabs {{
       display: flex;
-      background: #f1f5f9;
-      padding: 4px;
-      gap: 4px;
-      border-bottom: 1px solid var(--border);
+      background: rgba(118, 118, 128, 0.08);
+      padding: 3px;
+      gap: 3px;
+      border-radius: var(--radius-sm);
+      margin: 8px 12px 6px;
     }}
 
     .nav-tab-btn {{
@@ -2035,52 +2442,51 @@ def build_app():
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 7px 10px;
-      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      border-radius: 6px;
       border: none;
       background: transparent;
       font-size: 11px;
       font-weight: 700;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.18s var(--spring-settle);
     }}
 
     .nav-tab-btn:hover {{
-      background: rgba(255, 255, 255, 0.6);
       color: var(--text-primary);
     }}
 
     .nav-tab-btn.active {{
       background: #ffffff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      color: var(--text-primary);
     }}
 
     #tab-dispatch-fire.active {{
-      color: #b91c1c;
-      border-bottom: 2px solid #dc2626;
+      color: var(--red-dark);
     }}
 
     #tab-dispatch-hospital.active {{
       color: #0284c7;
-      border-bottom: 2px solid #0284c7;
     }}
 
-    /* PROPER DIRECTION GUIDANCE: Next-Turn Banner */
+    /* Next-Turn Maneuver Box */
     .next-turn-banner {{
       padding: 10px 14px;
-      background: var(--navy-900);
+      background: #0f172a;
       color: #ffffff;
       display: flex;
       align-items: center;
       gap: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      margin: 4px 12px 8px;
     }}
 
     .next-turn-icon-wrap {{
-      width: 42px;
-      height: 42px;
-      border-radius: var(--radius-md);
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
       background: rgba(255, 255, 255, 0.12);
       display: flex;
       align-items: center;
@@ -2090,8 +2496,8 @@ def build_app():
     }}
 
     .svg-maneuver {{
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       stroke: #22c55e;
       stroke-width: 2.5;
       fill: none;
@@ -2112,10 +2518,10 @@ def build_app():
     }}
 
     .next-turn-badge {{
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 800;
       text-transform: uppercase;
-      padding: 2px 6px;
+      padding: 2px 5px;
       border-radius: 4px;
       background: #22c55e;
       color: #064e3b;
@@ -2123,7 +2529,7 @@ def build_app():
     }}
 
     .next-turn-distance {{
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
       color: #ffffff;
     }}
@@ -2142,8 +2548,9 @@ def build_app():
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       padding: 8px 14px;
-      background: #f8fafc;
-      border-bottom: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.02);
+      border-top: 1px solid var(--apple-border);
+      border-bottom: 1px solid var(--apple-border);
       text-align: center;
     }}
 
@@ -2153,9 +2560,9 @@ def build_app():
     }}
 
     .telemetry-val {{
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
-      color: var(--navy-900);
+      color: var(--text-primary);
       font-variant-numeric: tabular-nums;
     }}
 
@@ -2167,11 +2574,10 @@ def build_app():
       margin-top: 1px;
     }}
 
-    /* Rider Progress Bar (Blinkit / Zepto) */
     .rider-progress-wrap {{
       padding: 7px 14px 8px;
       background: #ffffff;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--apple-border);
     }}
 
     .rider-progress-labels {{
@@ -2185,7 +2591,7 @@ def build_app():
 
     .rider-progress-track {{
       width: 100%;
-      height: 6px;
+      height: 5px;
       background: #e2e8f0;
       border-radius: 3px;
       overflow: hidden;
@@ -2199,11 +2605,10 @@ def build_app():
       transition: width 0.15s linear;
     }}
 
-    /* Simulation Control Bar */
     .sim-control-bar {{
       padding: 6px 14px;
       background: #ffffff;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--apple-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -2216,31 +2621,25 @@ def build_app():
       gap: 4px;
       padding: 4px 8px;
       background: #f1f5f9;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
+      border: 1px solid var(--apple-border);
+      border-radius: 6px;
       font-size: 11px;
       font-weight: 700;
-      color: var(--navy-900);
+      color: var(--text-primary);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }}
 
     .btn-sim-action:hover {{
       background: #e2e8f0;
     }}
 
-    .btn-sim-action.active {{
-      background: #e0f2fe;
-      border-color: #0284c7;
-      color: #0284c7;
-    }}
-
     .sim-speed-selector {{
       display: inline-flex;
       background: #f1f5f9;
-      border-radius: var(--radius-sm);
+      border-radius: 6px;
       padding: 2px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
     }}
 
     .btn-sim-speed {{
@@ -2249,29 +2648,20 @@ def build_app():
       font-size: 10px;
       font-weight: 800;
       padding: 2px 6px;
-      border-radius: 3px;
+      border-radius: 4px;
       cursor: pointer;
       color: var(--text-secondary);
     }}
 
     .btn-sim-speed.active {{
-      background: var(--navy-900);
+      background: #0f172a;
       color: #ffffff;
-    }}
-
-    .route-fallback-notice {{
-      padding: 6px 14px;
-      background: #fffbeb;
-      color: #92400e;
-      font-size: 11px;
-      display: none;
-      border-bottom: 1px solid #fef3c7;
     }}
 
     .route-steps-header {{
       padding: 6px 14px;
       background: #f8fafc;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--apple-border);
       display: flex;
       justify-content: space-between;
       font-size: 10px;
@@ -2297,10 +2687,10 @@ def build_app():
       font-size: 11px;
       line-height: 1.35;
       padding: 6px 8px;
-      border-radius: var(--radius-sm);
+      border-radius: 6px;
       border: 1px solid transparent;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }}
 
     .route-step-item:hover {{
@@ -2310,11 +2700,6 @@ def build_app():
     .route-step-item.active-turn {{
       background: #eff6ff;
       border-color: #3b82f6;
-      box-shadow: 0 0 0 1px #3b82f6;
-    }}
-
-    .route-step-item.completed-turn {{
-      opacity: 0.55;
     }}
 
     .step-icon {{
@@ -2341,62 +2726,18 @@ def build_app():
       padding: 1px 4px;
       border-radius: 3px;
       background: #e2e8f0;
-      color: var(--navy-900);
+      color: var(--text-primary);
       margin-right: 4px;
     }}
 
-    /* Emergency Header & Hero Buttons */
-    .btn-fire-simulate-header {{
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 5px 9px;
-      background: #dc2626;
-      color: #ffffff;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: background 0.2s;
-    }}
-
-    .btn-fire-simulate-header:hover {{
-      background: #b91c1c;
-    }}
-
-    .btn-fire-emergency-hero {{
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 14px;
-      background: #dc2626;
-      color: #ffffff;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      margin-top: 8px;
-      box-shadow: 0 3px 10px rgba(220, 38, 38, 0.35);
-      transition: background 0.2s, transform 0.1s;
-    }}
-
-    .btn-fire-emergency-hero:hover {{
-      background: #b91c1c;
-      transform: translateY(-1px);
-    }}
-
     /* =========================================================
-       8. FIRE HOSE RELAY & ALLEY REACH ASSESSMENT STYLES
+       8. FIRE HOSE RELAY & SURVEYOR MODALS (APPLE SHEETS)
        ========================================================= */
     .hose-modal {{
       background: #ffffff;
-      border-radius: var(--radius-md);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-modal);
+      border: 1px solid var(--apple-border);
       width: 820px;
       max-width: 95vw;
       max-height: 90vh;
@@ -2404,12 +2745,13 @@ def build_app():
       flex-direction: column;
       overflow-y: auto;
       font-family: var(--font);
+      animation: appleSpringPop 0.28s var(--spring-settle);
     }}
 
     .hose-staging-banner {{
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: var(--radius-sm);
+      background: var(--green-subtle);
+      border: 1px solid var(--green-border);
+      border-radius: var(--radius-md);
       margin: 16px 20px 0;
       padding: 12px 16px;
       display: flex;
@@ -2418,10 +2760,10 @@ def build_app():
     }}
 
     .staging-banner-icon {{
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-sm);
-      background: #16a34a;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--green-dark);
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -2437,9 +2779,9 @@ def build_app():
     }}
 
     .staging-banner-street {{
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
-      color: var(--navy-900);
+      color: var(--text-primary);
       margin: 2px 0;
     }}
 
@@ -2453,22 +2795,22 @@ def build_app():
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-      padding: 16px 20px 0;
+      padding: 14px 20px 0;
     }}
 
     .hose-kpi-card {{
       background: #f8fafc;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
       border-radius: var(--radius-sm);
-      padding: 12px 14px;
+      padding: 11px 13px;
       display: flex;
       flex-direction: column;
     }}
 
     .hose-kpi-val {{
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
-      color: var(--navy-900);
+      color: var(--text-primary);
     }}
 
     .hose-kpi-lbl {{
@@ -2486,14 +2828,14 @@ def build_app():
     }}
 
     .hose-analysis-section, .hose-sop-section {{
-      padding: 16px 20px 0;
+      padding: 14px 20px 0;
     }}
 
     .hose-section-title {{
       font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
-      color: var(--navy-900);
+      color: var(--text-primary);
       letter-spacing: 0.03em;
       margin-bottom: 8px;
     }}
@@ -2501,12 +2843,12 @@ def build_app():
     .hose-hazards-grid {{
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }}
 
     .hose-hazard-card {{
       background: #ffffff;
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
       border-radius: var(--radius-sm);
       padding: 10px 12px;
     }}
@@ -2517,7 +2859,7 @@ def build_app():
       gap: 6px;
       margin-bottom: 4px;
       font-size: 11px;
-      color: var(--navy-900);
+      color: var(--text-primary);
     }}
 
     .hazard-card-badge {{
@@ -2531,21 +2873,9 @@ def build_app():
     }}
 
     .hazard-card-badge.red {{
-      background: #fef2f2;
+      background: var(--red-subtle);
       color: #b91c1c;
-      border: 1px solid #fecaca;
-    }}
-
-    .hazard-card-badge.orange {{
-      background: #fff7ed;
-      color: #c2410c;
-      border: 1px solid #fed7aa;
-    }}
-
-    .hazard-card-badge.green {{
-      background: #f0fdf4;
-      color: #15803d;
-      border: 1px solid #bbf7d0;
+      border: 1px solid var(--red-border);
     }}
 
     .hazard-card-body {{
@@ -2569,14 +2899,14 @@ def build_app():
       background: #f8fafc;
       padding: 7px 10px;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
+      border: 1px solid var(--apple-border);
     }}
 
     .sop-step-num {{
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: var(--navy-900);
+      background: #0f172a;
       color: #ffffff;
       font-size: 10px;
       font-weight: 800;
@@ -2592,80 +2922,43 @@ def build_app():
       color: #334155;
     }}
 
-    .btn-hose-calc-rail {{
-      width: 100%;
+    /* Surveyor Modal */
+    .surveyor-modal {{
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-modal);
+      border: 1px solid var(--apple-border);
+      width: 720px;
+      max-width: 95vw;
+      max-height: 90vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 8px 12px;
-      background: #f0fdf4;
-      color: #15803d;
-      border: 1px solid #bbf7d0;
-      border-radius: var(--radius-sm);
+      flex-direction: column;
+      overflow: hidden;
+      animation: appleSpringPop 0.28s var(--spring-settle);
+    }}
+
+    .surveyor-form-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 20px;
+      overflow-y: auto;
+      max-height: 65vh;
+    }}
+
+    .survey-group {{
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }}
+
+    .survey-label {{
       font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
-      margin-top: 6px;
-      transition: all 0.15s ease;
+      font-weight: 700;
+      color: var(--text-secondary);
     }}
 
-    .btn-hose-calc-rail:hover {{
-      background: #dcfce7;
-      border-color: #86efac;
-    }}
-
-    .staging-truck-marker {{
-      background: #dc2626;
-      color: #ffffff;
-      border: 2px solid #ffffff;
-      border-radius: 6px;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
-      cursor: pointer;
-    }}
-
-    .hose-coupling-node {{
-      background: #0284c7;
-      color: #ffffff;
-      border: 2px solid #ffffff;
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-      font-weight: 800;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-      cursor: pointer;
-    }}
-
-    .branchpipe-nozzle-marker {{
-      background: #ea580c;
-      color: #ffffff;
-      border: 2px solid #ffffff;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-      cursor: pointer;
-    }}
-
-    /* Crisp Tile Rendering */
-    .leaflet-tile {{
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
-    }}
-
-    /* Live Vehicle Marker & Sonar Radar (Blinkit/Zepto) */
+    /* Map Vehicle Markers & Radars */
     .live-vehicle-marker {{
       position: relative;
       width: 44px;
@@ -2685,8 +2978,7 @@ def build_app():
       justify-content: center;
       color: #ffffff;
       position: relative;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
-      transition: transform 0.1s ease-out;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
       border: 2.5px solid #ffffff;
       z-index: 2;
     }}
@@ -2709,7 +3001,7 @@ def build_app():
       transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 1;
-      animation: vehicleRadarPulse 1.8s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
+      animation: vehicleRadarPulse 1.8s infinite var(--spring-snappy);
     }}
 
     .vehicle-disc.fire ~ .vehicle-radar-wave {{
@@ -2745,7 +3037,6 @@ def build_app():
       z-index: 3;
     }}
 
-    /* Active Incident Fire Beacon on Workshop */
     .fire-beacon-marker {{
       position: relative;
       width: 44px;
@@ -2809,22 +3100,88 @@ def build_app():
       border: 1px solid rgba(255,255,255,0.4);
       letter-spacing: 0.03em;
     }}
-    
+
+    .staging-truck-marker {{
+      background: #dc2626;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+    }}
+
+    .hose-coupling-node {{
+      background: #0284c7;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+    }}
+
+    .branchpipe-nozzle-marker {{
+      background: #ea580c;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+    }}
+
     /* Custom Leaflet Tooltip */
     .leaflet-tooltip.custom-map-tooltip {{
-      background: rgba(8, 24, 39, 0.95);
+      background: rgba(15, 23, 42, 0.94);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 6px;
+      border-radius: 8px;
       color: #ffffff;
       padding: 8px 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
       font-family: var(--font);
     }}
 
     .leaflet-tooltip-top:before {{
-      border-top-color: rgba(8, 24, 39, 0.95) !important;
+      border-top-color: rgba(15, 23, 42, 0.94) !important;
     }}
 
+    .leaflet-tile {{
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }}
+
+    /* Modern Thin Scrollbar */
+    ::-webkit-scrollbar {{
+      width: 5px;
+      height: 5px;
+    }}
+    ::-webkit-scrollbar-track {{
+      background: transparent;
+    }}
+    ::-webkit-scrollbar-thumb {{
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 9999px;
+    }}
+    ::-webkit-scrollbar-thumb:hover {{
+      background: rgba(0, 0, 0, 0.3);
+    }}
+
+    /* Responsive */
     @media (max-width: 1024px) {{
       .map-row-grid {{
         grid-template-columns: 1fr;
@@ -2838,353 +3195,9 @@ def build_app():
       }}
       .modal-body {{
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
       }}
     }}
-
-    /* =========================================================
-       MODERN SCROLLBARS & SMOOTH ELEVATION
-       ========================================================= */
-    ::-webkit-scrollbar {{
-      width: 6px;
-      height: 6px;
-    }}
-    ::-webkit-scrollbar-track {{
-      background: transparent;
-    }}
-    ::-webkit-scrollbar-thumb {{
-      background: rgba(148, 163, 184, 0.4);
-      border-radius: 9999px;
-    }}
-    ::-webkit-scrollbar-thumb:hover {{
-      background: rgba(148, 163, 184, 0.7);
-    }}
-    /* Clean Crisp Light Theme - High Legibility Institutional Standard */
-
-    /* =========================================================
-       4 DISTINCT ROLE DASHBOARDS & FUNCTIONAL PANELS
-       ========================================================= */
-    .top-bar-center-roles {{
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }}
-
-    .role-switcher-segmented {{
-      display: flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: var(--radius-full);
-      padding: 3px;
-      gap: 3px;
-    }}
-
-    .role-switch-btn {{
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      background: transparent;
-      border: none;
-      border-radius: var(--radius-full);
-      color: #cbd5e1;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      user-select: none;
-    }}
-
-    .role-switch-btn:hover {{
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.12);
-    }}
-
-    .role-switch-btn.active {{
-      background: #0891b2;
-      color: #ffffff;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
-    }}
-
-    .role-switch-btn.active.fire {{
-      background: #dc2626;
-    }}
-
-    .role-switch-btn.active.planner {{
-      background: #0891b2;
-    }}
-
-    .role-switch-btn.active.surveyor {{
-      background: #16a34a;
-    }}
-
-    .role-switch-btn.active.admin {{
-      background: #0e3a5f;
-    }}
-
-    /* Role Mission Context Banner */
-    .role-mission-banner {{
-      background: #ffffff;
-      border-bottom: 1px solid var(--border);
-      padding: 10px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-    }}
-
-    [data-theme="dark"] .role-mission-banner {{
-      background: #111a2e;
-      border-bottom-color: var(--border);
-    }}
-
-    .role-mission-left {{
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
-    }}
-
-    .role-mission-tag {{
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #ffffff;
-      flex-shrink: 0;
-    }}
-
-    .role-mission-desc {{
-      font-size: 12px;
-      color: var(--text-secondary);
-      font-weight: 500;
-      line-height: 1.4;
-    }}
-
-    .role-mission-actions {{
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }}
-
-    .btn-role-action {{
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: var(--radius-sm);
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-    }}
-
-    .btn-role-action:hover {{
-      transform: translateY(-1px);
-    }}
-
-    .btn-role-action.primary {{
-      background: #0891b2;
-      color: #ffffff;
-    }}
-    .btn-role-action.primary:hover {{
-      background: #0e7490;
-    }}
-
-    .btn-role-action.fire-red {{
-      background: #dc2626;
-      color: #ffffff;
-    }}
-    .btn-role-action.fire-red:hover {{
-      background: #b91c1c;
-    }}
-
-    .btn-role-action.outline {{
-      background: var(--paper-card);
-      border-color: var(--border);
-      color: var(--text-primary);
-    }}
-    .btn-role-action.outline:hover {{
-      background: var(--paper);
-      border-color: var(--border-dark);
-    }}
-
-    /* Role Functional Panels below Map */
-    .role-specific-section {{
-      display: none;
-      margin-top: 24px;
-    }}
-
-    .role-specific-section.active {{
-      display: block;
-    }}
-
-    /* AHP Weight Tuning Drawer / Sliders */
-    .ahp-tuner-card {{
-      background: var(--paper-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
-      margin-bottom: 24px;
-    }}
-
-    [data-theme="dark"] .ahp-tuner-card {{
-      background: #111a2e;
-      border-color: var(--border);
-    }}
-
-    .ahp-slider-grid {{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 14px;
-    }}
-
-    .ahp-slider-box {{
-      background: var(--paper);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-    }}
-
-    [data-theme="dark"] .ahp-slider-box {{
-      background: #162238;
-      border-color: #1e2c47;
-    }}
-
-    .ahp-box-header {{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }}
-
-    .ahp-box-title {{
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--text-primary);
-    }}
-
-    .ahp-box-val {{
-      font-size: 13px;
-      font-weight: 800;
-      color: #0891b2;
-    }}
-
-    .ahp-range-input {{
-      width: 100%;
-      height: 6px;
-      border-radius: 9999px;
-      background: #cbd5e1;
-      outline: none;
-      cursor: pointer;
-    }}
-
-    [data-theme="dark"] .ahp-range-input {{
-      background: #2a3d60;
-    }}
-
-    /* Planner Conflagration & Policy Cards */
-    .planner-grid-row {{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 24px;
-    }}
-
-    .policy-box {{
-      background: var(--paper);
-      border-left: 3px solid #0891b2;
-      padding: 12px 14px;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      margin-top: 10px;
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--text-secondary);
-    }}
-
-    [data-theme="dark"] .policy-box {{
-      background: #162238;
-    }}
-
-    /* Surveyor Rapid Audit Modal */
-    .surveyor-modal {{
-      background: var(--paper-card);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-modal);
-      border: 1px solid var(--border);
-      width: 720px;
-      max-width: 95vw;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }}
-
-    [data-theme="dark"] .surveyor-modal {{
-      background: #111a2e;
-      border-color: #22324f;
-    }}
-
-    .surveyor-form-grid {{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      padding: 20px;
-      overflow-y: auto;
-      max-height: 65vh;
-    }}
-
-    .survey-group {{
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }}
-
-    .survey-label {{
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-secondary);
-    }}
-
-    /* Clickable interactive analytics items */
-    .clickable-bar-item {{
-      cursor: pointer;
-      transition: all 0.15s ease;
-      border-radius: var(--radius-sm);
-      padding: 4px 6px;
-      margin: -4px -6px;
-    }}
-
-    .clickable-bar-item:hover {{
-      background: rgba(8, 145, 178, 0.1);
-      transform: translateX(2px);
-    }}
-
-    .clickable-seg-slice {{
-      cursor: pointer;
-      transition: opacity 0.15s ease;
-    }}
-    .clickable-seg-slice:hover {{
-      opacity: 0.85;
-      filter: brightness(1.1);
-    }}
-
   </style>
 </head>
 <body>
