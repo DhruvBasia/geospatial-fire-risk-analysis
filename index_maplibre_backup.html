@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seelampur Fire Risk Map</title>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.css"/>
+<script src="https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body, #map { width: 100%; height: 100vh; font-family: 'Segoe UI', sans-serif; }
+#legend {
+    position: absolute; bottom: 30px; left: 12px; z-index: 1000;
+    background: rgba(255,255,255,0.95); padding: 14px 18px; border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15); min-width: 160px;
+    font-size: 13px; line-height: 1.6;
+}
+#legend h4 { margin-bottom: 6px; font-size: 14px; color: #333; }
+.legend-item { display: flex; align-items: center; gap: 8px; margin: 2px 0; }
+.legend-color {
+    width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+#controls {
+    position: absolute; top: 12px; right: 12px; z-index: 1000;
+    background: rgba(255,255,255,0.95); padding: 12px 16px; border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15); max-height: 80vh; overflow-y: auto;
+    font-size: 13px; min-width: 200px;
+}
+#controls h4 { margin-bottom: 8px; font-size: 14px; color: #333; }
+.control-group { margin-bottom: 10px; }
+.control-group label { display: block; font-weight: 600; color: #555; margin-bottom: 2px; font-size: 12px; }
+.layer-toggle { display: flex; align-items: center; gap: 6px; margin: 2px 0; cursor: pointer; font-size: 12px; }
+.layer-toggle input { cursor: pointer; }
+.popup-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.popup-table td { padding: 3px 6px; border-bottom: 1px solid #eee; }
+.popup-table td:first-child { font-weight: 600; color: #555; width: 160px; }
+.popup-table td:last-child { text-align: right; }
+.popup-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #222; }
+.popup-tier { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+#info {
+    position: absolute; top: 12px; left: 12px; z-index: 1000;
+    background: rgba(255,255,255,0.9); padding: 8px 14px; border-radius: 6px;
+    font-size: 13px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); pointer-events: none;
+}
+.loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2000; font-size: 18px; color: #555; background: rgba(255,255,255,0.9); padding: 20px 30px; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div id="loading" class="loading">Loading map data...</div>
+<div id="map"></div>
+<div id="info">Seelampur Fire Risk Map — Click any point for details</div>
+<div id="legend">
+    <h4>Fire Risk Tier</h4>
+    <div class="legend-item"><span class="legend-color" style="background:#D32F2F"></span>Severe</div>
+    <div class="legend-item"><span class="legend-color" style="background:#FF9800"></span>High</div>
+    <div class="legend-item"><span class="legend-color" style="background:#FFC107"></span>Moderate</div>
+    <div class="legend-item"><span class="legend-color" style="background:#4CAF50"></span>Low</div>
+</div>
+<div id="controls"><h4>Layers</h4><div id="layer-list"></div></div>
+<script>
+const RISK_COLORS = { Severe: '#D32F2F', High: '#FF9800', Moderate: '#FFC107', Low: '#4CAF50' };
+const TIER_ORDER = ['Severe', 'High', 'Moderate', 'Low'];
+
+const map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            'osm-tiles': {
+                type: 'raster',
+                tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                tileSize: 256,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }
+        },
+        layers: [{
+            id: 'osm-bg',
+            type: 'raster',
+            source: 'osm-tiles',
+            minzoom: 0,
+            maxzoom: 19
+        }]
+    },
+    center: [77.271, 28.6665],
+    zoom: 15.5,
+    maxBounds: [[77.26, 28.66], [77.28, 28.672]]
+});
+
+map.addControl(new maplibregl.NavigationControl(), 'top-left');
+
+const LAYERS_CONFIG = [
+    { id: 'survey_points', file: 'data/survey_points.geojson', name: 'Survey Points (Risk)', type: 'point', default: true },
+    { id: 'study_area', file: 'data/study_area.geojson', name: 'Study Area', type: 'polygon', default: true },
+    { id: 'residential', file: 'data/residential.geojson', name: 'Residential', type: 'polygon', default: false },
+    { id: 'commercial', file: 'data/commercial.geojson', name: 'Commercial', type: 'polygon', default: false },
+    { id: 'com_res', file: 'data/com_res.geojson', name: 'Commercial + Residential', type: 'polygon', default: false },
+    { id: 'ind_res', file: 'data/ind_res.geojson', name: 'Industrial + Residential', type: 'polygon', default: false },
+    { id: 'ind_com', file: 'data/ind_com.geojson', name: 'Industrial + Commercial', type: 'polygon', default: false },
+    { id: 'g_plus_1', file: 'data/g_plus_1.geojson', name: 'G+1 Buildings', type: 'polygon', default: false },
+    { id: 'g_plus_2', file: 'data/g_plus_2.geojson', name: 'G+2 Buildings', type: 'polygon', default: false },
+    { id: 'g_plus_3', file: 'data/g_plus_3.geojson', name: 'G+3 Buildings', type: 'polygon', default: false },
+    { id: 'g_plus_4', file: 'data/g_plus_4.geojson', name: 'G+4 Buildings', type: 'polygon', default: false },
+    { id: 'roads', file: 'data/roads.geojson', name: 'Major Roads', type: 'line', default: false },
+    { id: 'streets', file: 'data/streets.geojson', name: 'Streets', type: 'line', default: true },
+    { id: 'drain', file: 'data/drain.geojson', name: 'Drain', type: 'line', default: false },
+    { id: 'railway', file: 'data/railway.geojson', name: 'Railway', type: 'line', default: false },
+    { id: 'metro_line', file: 'data/metro_line.geojson', name: 'Metro Line', type: 'line', default: false },
+    { id: 'metro_station', file: 'data/metro_station.geojson', name: 'Metro Station', type: 'point', default: false },
+    { id: 'health_centers', file: 'data/health_centers.geojson', name: 'Health Centers', type: 'point', default: false },
+    { id: 'schools', file: 'data/schools.geojson', name: 'Schools', type: 'point', default: false },
+    { id: 'religious_places', file: 'data/religious_places.geojson', name: 'Religious Places', type: 'point', default: false },
+    { id: 'public_semi_public', file: 'data/public_semi_public.geojson', name: 'Public/Semi-Public', type: 'polygon', default: false },
+    { id: 'ward_boundary', file: 'data/ward_boundary.geojson', name: 'Ward Boundary', type: 'polygon', default: false }
+];
+
+const loadedLayers = {};
+const layerList = document.getElementById('layer-list');
+
+function buildGroupedControls() {
+    const groups = {
+        'Risk Data': ['survey_points'],
+        'Boundaries': ['study_area', 'ward_boundary'],
+        'Buildings': ['residential', 'commercial', 'com_res', 'ind_res', 'ind_com', 'g_plus_1', 'g_plus_2', 'g_plus_3', 'g_plus_4'],
+        'Infrastructure': ['roads', 'streets', 'drain', 'railway', 'metro_line', 'metro_station'],
+        'Amenities': ['health_centers', 'schools', 'religious_places', 'public_semi_public']
+    };
+    for (const [groupName, ids] of Object.entries(groups)) {
+        const div = document.createElement('div');
+        div.className = 'control-group';
+        const label = document.createElement('label');
+        label.textContent = groupName;
+        div.appendChild(label);
+        for (const id of ids) {
+            const cfg = LAYERS_CONFIG.find(l => l.id === id);
+            if (!cfg) continue;
+            const wrap = document.createElement('div');
+            wrap.className = 'layer-toggle';
+            const cb = document.createElement('input');
+            cb.type = 'checkbox'; cb.id = 'cb-' + id; cb.checked = cfg.default;
+            cb.addEventListener('change', () => toggleLayer(id, cb.checked));
+            const txt = document.createElement('span');
+            txt.textContent = cfg.name;
+            wrap.appendChild(cb); wrap.appendChild(txt);
+            div.appendChild(wrap);
+        }
+        layerList.appendChild(div);
+    }
+}
+
+function toggleLayer(id, show) {
+    const prefix = id + '-';
+    const layers = map.getStyle().layers || [];
+    for (const l of layers) {
+        if (l.id.startsWith(prefix)) {
+            map.setLayoutProperty(l.id, 'visibility', show ? 'visible' : 'none');
+        }
+    }
+}
+
+function addLayerToMap(cfg, geojson) {
+    const id = cfg.id;
+    map.addSource(id, { type: 'geojson', data: geojson });
+
+    if (cfg.type === 'polygon') {
+        const isBuilding = ['residential','commercial','com_res','ind_res','ind_com','g_plus_1','g_plus_2','g_plus_3','g_plus_4'].includes(id);
+        map.addLayer({
+            id: id + '-fill', type: 'fill', source: id,
+            paint: {
+                'fill-color': isBuilding ? '#e8dcc8' : '#a8d8ea',
+                'fill-opacity': isBuilding ? 0.5 : 0.3,
+                'fill-outline-color': isBuilding ? '#c4b49a' : '#7ab8d4'
+            }
+        });
+        map.addLayer({
+            id: id + '-outline', type: 'line', source: id,
+            paint: {
+                'line-color': isBuilding ? '#a09070' : '#5a9ab4',
+                'line-width': isBuilding ? 0.5 : 1
+            }
+        });
+    } else if (cfg.type === 'line') {
+        const colors = { roads: '#e74c3c', streets: '#95a5a6', drain: '#3498db', railway: '#2c3e50', metro_line: '#27ae60' };
+        const widths = { roads: 2.5, streets: 1.2, drain: 1.5, railway: 2, metro_line: 2 };
+        map.addLayer({
+            id: id + '-line', type: 'line', source: id,
+            paint: {
+                'line-color': colors[id] || '#888',
+                'line-width': widths[id] || 1.5,
+                'line-opacity': 0.8
+            }
+        });
+    } else if (cfg.type === 'point') {
+        if (cfg.id === 'survey_points') {
+            // Color by RiskTier
+            map.addLayer({
+                id: id + '-circle', type: 'circle', source: id,
+                paint: {
+                    'circle-radius': ['match', ['get', 'RiskTier'], 'Severe', 9, 'High', 8, 'Moderate', 7, 'Low', 6, 6],
+                    'circle-color': ['match', ['get', 'RiskTier'], 'Severe', '#D32F2F', 'High', '#FF9800', 'Moderate', '#FFC107', 'Low', '#4CAF50', '#888'],
+                    'circle-opacity': 0.85,
+                    'circle-stroke-width': 1.5,
+                    'circle-stroke-color': ['match', ['get', 'RiskTier'], 'Severe', '#B71C1C', 'High', '#E65100', 'Moderate', '#F9A825', 'Low', '#2E7D32', '#555']
+                }
+            });
+            // Larger invisible hit area for easier clicking
+            map.addLayer({
+                id: id + '-hit', type: 'circle', source: id,
+                paint: {
+                    'circle-radius': 14,
+                    'circle-opacity': 0
+                }
+            });
+            // Click popup
+            map.on('click', id + '-hit', (e) => {
+                const p = e.features[0].properties;
+                if (!p) return;
+                let rows = '';
+                const params = [
+                    'EnterpriseID', 'Enterprise', 'RiskTier', 'FireRiskIndex',
+                    'Number of exit routes', 'Obstruction-free evacuation', 'Functional emergency exits',
+                    'Staircase width', 'Workspace size (sq ft)', 'Number of floors',
+                    'Natural light availability', 'Windows / natural openings', 'Corridor geometry',
+                    'Waste burning nearby', 'Visible dust / emissions', 'Gap to adjacent building',
+                    'Distance to fire station', 'Fire-brigade response time', 'Approach road for fire truck',
+                    'Daily working hours', 'Daily occupancy / visitors', 'Daily water-supply hours',
+                    'Frequency of health problems', 'Access to health schemes',
+                    'SUB Egress', 'SUB Hazard', 'SUB Access', 'SocioVuln', 'PastIncident'
+                ];
+                for (const key of params) {
+                    const v = p[key];
+                    if (v === null || v === undefined || v === '') continue;
+                    const label = key;
+                    const val = typeof v === 'number' ? v.toFixed(4) : v;
+                    rows += `<tr><td>${label}</td><td>${val}</td></tr>`;
+                }
+                const tier = p['RiskTier'] || 'Unknown';
+                const tierColor = RISK_COLORS[tier] || '#888';
+                new maplibregl.Popup({ offset: [0, -20], maxWidth: '360px' })
+                    .setLngLat(e.lngLat)
+                    .setHTML(`<div class="popup-title">${p['Enterprise'] || 'Unknown'}</div>
+                              <span class="popup-tier" style="background:${tierColor}">${tier}</span>
+                              <table class="popup-table">${rows}</table>`)
+                    .addTo(map);
+            });
+            // Hover cursor
+            map.on('mouseenter', id + '-hit', () => { map.getCanvas().style.cursor = 'pointer'; });
+            map.on('mouseleave', id + '-hit', () => { map.getCanvas().style.cursor = ''; });
+        } else {
+            map.addLayer({
+                id: id + '-circle', type: 'circle', source: id,
+                paint: {
+                    'circle-radius': 6,
+                    'circle-color': '#e67e22',
+                    'circle-opacity': 0.8,
+                    'circle-stroke-width': 1,
+                    'circle-stroke-color': '#fff'
+                }
+            });
+        }
+    }
+
+    // Apply default visibility
+    if (!cfg.default) {
+        map.once('idle', () => toggleLayer(cfg.id, false));
+    }
+    loadedLayers[id] = true;
+}
+
+// Load all layers
+Promise.all(LAYERS_CONFIG.map(cfg =>
+    fetch(cfg.file).then(r => r.json()).then(geo => addLayerToMap(cfg, geo)).catch(e => {
+        console.warn('Failed to load ' + cfg.id + ':', e.message);
+    })
+)).then(() => {
+    document.getElementById('loading').style.display = 'none';
+}).catch(() => {
+    document.getElementById('loading').style.display = 'none';
+});
+
+buildGroupedControls();
+
+// Fit to survey points once loaded
+map.once('idle', () => {
+    if (map.getSource('survey_points')) {
+        const bounds = new maplibregl.LngLatBounds();
+        const src = map.getSource('survey_points');
+        if (src._data && src._data.features) {
+            src._data.features.forEach(f => {
+                if (f.geometry && f.geometry.coordinates) {
+                    bounds.extend(f.geometry.coordinates);
+                }
+            });
+            if (!bounds.isEmpty()) {
+                map.fitBounds(bounds, { padding: 60, maxZoom: 16 });
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>

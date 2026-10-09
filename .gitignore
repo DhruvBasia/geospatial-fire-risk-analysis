@@ -17,6 +17,7 @@ __pycache__/
 *.pyo
 venv/
 .venv/
+.pytest_cache/
 
 # --- OS / editor ---
 Thumbs.db
@@ -24,3 +25,4 @@ Thumbs.db
 .vscode/
 .idea/
 *.log
+test_*.png

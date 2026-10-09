@@ -1,0 +1,303 @@
+{
+  "disclaimer": "All numbers below are generated from synthetic simulation runs, not live Ethereum mainnet.",
+  "timestamp": 1791481049.7463825,
+  "elapsed_seconds": 3.31,
+  "pre_admission": {
+    "total_candidates": 120,
+    "honest_count": 61,
+    "malicious_count": 59,
+    "formula_only_metrics": {
+      "tp": 59,
+      "tn": 61,
+      "fp": 0,
+      "fn": 0,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "fpr": 0.0,
+      "fnr": 0.0,
+      "f1_score": 1.0
+    },
+    "with_escalation_metrics": {
+      "tp": 59,
+      "tn": 61,
+      "fp": 0,
+      "fn": 0,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "fpr": 0.0,
+      "fnr": 0.0,
+      "f1_score": 1.0
+    },
+    "roc_auc": 1.0,
+    "ablation_roc_aucs": {
+      "Full_Trust_Factor": 1.0,
+      "Sybil_Agent_Only": 0.7502,
+      "Wallet_Agent_Only": 0.4796,
+      "Finney_Agent_Only": 0.5346,
+      "Eclipse_Agent_Only": 0.5765
+    },
+    "per_attack_breakdown": {
+      "honest_fee_bumper": {
+        "count": 6,
+        "rate_formula": 0.0,
+        "rate_escalation": 0.0
+      },
+      "honest_regular": {
+        "count": 31,
+        "rate_formula": 0.0,
+        "rate_escalation": 0.0
+      },
+      "stealthy_sybil": {
+        "count": 12,
+        "rate_formula": 1.0,
+        "rate_escalation": 1.0
+      },
+      "malicious_wallet": {
+        "count": 12,
+        "rate_formula": 1.0,
+        "rate_escalation": 1.0
+      },
+      "honest_single_cloud": {
+        "count": 12,
+        "rate_formula": 0.0,
+        "rate_escalation": 0.0
+      },
+      "finney": {
+        "count": 9,
+        "rate_formula": 1.0,
+        "rate_escalation": 1.0
+      },
+      "eclipse": {
+        "count": 8,
+        "rate_formula": 1.0,
+        "rate_escalation": 1.0
+      },
+      "honest_power_user": {
+        "count": 12,
+        "rate_formula": 0.0,
+        "rate_escalation": 0.0
+      },
+      "sybil": {
+        "count": 18,
+        "rate_formula": 1.0,
+        "rate_escalation": 1.0
+      }
+    },
+    "sample_candidates": [
+      {
+        "candidate": "0x2166ddb9",
+        "type": "honest_fee_bumper",
+        "label": "honest",
+        "tf": 0.772,
+        "ar": 0.0367,
+        "pt": 0.6444,
+        "escalation": false,
+        "pred_formula": "ACCEPT",
+        "pred_escalation": "ACCEPT"
+      },
+      {
+        "candidate": "0x49a3430c",
+        "type": "honest_regular",
+        "label": "honest",
+        "tf": 0.7985,
+        "ar": 0.0351,
+        "pt": 0.6875,
+        "escalation": false,
+        "pred_formula": "ACCEPT",
+        "pred_escalation": "ACCEPT"
+      },
+      {
+        "candidate": "0xf31f152f",
+        "type": "honest_regular",
+        "label": "honest",
+        "tf": 0.7932,
+        "ar": 0.0351,
+        "pt": 0.6787,
+        "escalation": false,
+        "pred_formula": "ACCEPT",
+        "pred_escalation": "ACCEPT"
+      },
+      {
+        "candidate": "0x1657720f",
+        "type": "stealthy_sybil",
+        "label": "malicious",
+        "tf": 0.6289,
+        "ar": 0.1904,
+        "pt": 0.5084,
+        "escalation": true,
+        "pred_formula": "REJECT",
+        "pred_escalation": "FLAGGED/REJECT"
+      },
+      {
+        "candidate": "0xa2be3cd3",
+        "type": "honest_fee_bumper",
+        "label": "honest",
+        "tf": 0.7684,
+        "ar": 0.0367,
+        "pt": 0.6384,
+        "escalation": false,
+        "pred_formula": "ACCEPT",
+        "pred_escalation": "ACCEPT"
+      },
+      {
+        "candidate": "0x27168ae9",
+        "type": "honest_fee_bumper",
+        "label": "honest",
+        "tf": 0.7666,
+        "ar": 0.0367,
+        "pt": 0.6354,
+        "escalation": false,
+        "pred_formula": "ACCEPT",
+        "pred_escalation": "ACCEPT"
+      },
+      {
+        "candidate": "0xf30533d2",
+        "type": "honest_regular",
+        "label": "honest",
+        "tf": 0.7962,
+        "ar": 0.0351,
+        "pt": 0.6838,
+        "escalation": false,
+        "pred_formula": "ACCEPT",
+        "pred_escalation": "ACCEPT"
+      },
+      {
+        "candidate": "0x6c400b5b",
+        "type": "honest_regular",
+        "label": "honest",
+        "tf": 0.7985,
+        "ar": 0.0351,
+        "pt": 0.6875,
+        "escalation": false,
+        "pred_formula": "ACCEPT",
+        "pred_escalation": "ACCEPT"
+      },
+      {
+        "candidate": "0xcff03641",
+        "type": "stealthy_sybil",
+        "label": "malicious",
+        "tf": 0.6333,
+        "ar": 0.1904,
+        "pt": 0.5158,
+        "escalation": true,
+        "pred_formula": "REJECT",
+        "pred_escalation": "FLAGGED/REJECT"
+      },
+      {
+        "candidate": "0xa05c523d",
+        "type": "malicious_wallet",
+        "label": "malicious",
+        "tf": 0.6617,
+        "ar": 0.1547,
+        "pt": 0.5393,
+        "escalation": false,
+        "pred_formula": "REJECT",
+        "pred_escalation": "FLAGGED/REJECT"
+      }
+    ]
+  },
+  "observation_window": {
+    "initial_recommendation": "ACCEPT",
+    "initial_tf": 0.8019,
+    "total_probation_steps": 5,
+    "first_alert_step": 5,
+    "final_action": "remove",
+    "trajectory": [
+      {
+        "step": 1,
+        "tx_hash": "0xc23b84c7",
+        "h_trust": 0.75,
+        "b_consistency": 0.9,
+        "tf": 0.8079,
+        "alert_raised": false,
+        "alert_message": "Transaction verified clean; trust updated.",
+        "action": "continue"
+      },
+      {
+        "step": 2,
+        "tx_hash": "0xc6120173",
+        "h_trust": 0.8,
+        "b_consistency": 0.9,
+        "tf": 0.8139,
+        "alert_raised": false,
+        "alert_message": "Transaction verified clean; trust updated.",
+        "action": "continue"
+      },
+      {
+        "step": 3,
+        "tx_hash": "0x1029e4b9",
+        "h_trust": 0.85,
+        "b_consistency": 0.9,
+        "tf": 0.8199,
+        "alert_raised": false,
+        "alert_message": "Transaction verified clean; trust updated.",
+        "action": "continue"
+      },
+      {
+        "step": 4,
+        "tx_hash": "0x4cd9c61f",
+        "h_trust": 0.9,
+        "b_consistency": 0.93,
+        "tf": 0.8286,
+        "alert_raised": false,
+        "alert_message": "Transaction verified clean; trust updated.",
+        "action": "continue"
+      },
+      {
+        "step": 5,
+        "tx_hash": "0x6b2bb6ad",
+        "h_trust": 0.7,
+        "b_consistency": 0.48,
+        "tf": 0.6641,
+        "alert_raised": true,
+        "alert_message": "CRITICAL: TF (0.66) < TV (0.70). Suspicious transfer to related cluster account 0x49a3430c...",
+        "action": "remove"
+      }
+    ]
+  },
+  "post_admission": {
+    "baseline_honest": {
+      "total_blocks": 150,
+      "alerts_emitted": 3,
+      "false_alert_rate": 0.02
+    },
+    "attack_51_percent": {
+      "attack_type": "51% Coalition Attack",
+      "detected": true,
+      "first_alert_block": 1,
+      "detection_delay_blocks": 0,
+      "detection_delay_sec": 114.99,
+      "total_alerts": 280,
+      "deduplication_rate": 0.0
+    },
+    "selfish_mining": {
+      "attack_type": "Selfish Mining (alpha=0.33)",
+      "detected": true,
+      "first_alert_block": 1,
+      "detection_delay_blocks": 0,
+      "detection_delay_sec": 114.99,
+      "total_alerts": 232,
+      "deduplication_rate": 0.0
+    },
+    "block_withholding": {
+      "attack_type": "Block Withholding",
+      "detected": true,
+      "first_alert_block": 1,
+      "detection_delay_blocks": 0,
+      "detection_delay_sec": 114.99,
+      "total_alerts": 192,
+      "deduplication_rate": 0.0
+    },
+    "race_double_spend": {
+      "attack_type": "Race Double-Spend",
+      "detected": true,
+      "first_alert_block": 1,
+      "detection_delay_blocks": 0,
+      "detection_delay_sec": 114.99,
+      "total_alerts": 40,
+      "deduplication_rate": 0.0
+    }
+  }
+}
