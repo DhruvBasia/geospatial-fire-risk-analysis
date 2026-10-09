@@ -1,9 +1,39 @@
+# Render blueprint — Firebreak is a static site.
+# The build copies only what the app serves into dist/ (see scripts/build.mjs).
 services:
   - type: web
     name: seelampur-fire-risk-map
     runtime: static
-    staticPublishPath: .
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    buildCommand: node scripts/build.mjs
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: false
+    headers:
+      # index.html keeps Render's default (always revalidated). The assets it references carry a
+      # content hash in their URL, so they can be cached for a year.
+      - path: /css/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /js/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      # Security headers.
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: geolocation=(self), camera=(), microphone=()
+      # Only the sources the app actually uses: Leaflet from unpkg, Google Fonts,
+      # OpenStreetMap and Esri map tiles, and the OSRM routing service.
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://tile.openstreetmap.org https://server.arcgisonline.com https://unpkg.com; connect-src 'self' https://router.project-osrm.org; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"

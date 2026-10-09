@@ -19,6 +19,13 @@ venv/
 .venv/
 .pytest_cache/
 
+# --- Build output (Render builds it with `node scripts/build.mjs`) ---
+dist/
+*.tmp
+
+# --- Local tooling ---
+.claude/
+
 # --- OS / editor ---
 Thumbs.db
 .DS_Store

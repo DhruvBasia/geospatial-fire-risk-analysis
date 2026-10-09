@@ -1,8 +1,8 @@
 # Geospatial Fire Risk Analysis & Disaster Vulnerability Platform
 
-An interactive Web GIS platform and multi-criteria spatial risk assessment engine designed to quantify, evaluate, and visualize structural fire hazards in high-density informal urban settlements. Developed using **MapLibre GL**, **GeoPandas**, and **OpenStreetMap**, with an empirical field case study conducted across Seelampur (North East Delhi).
+An interactive Web GIS platform and multi-criteria spatial risk assessment engine designed to quantify, evaluate, and visualize structural fire hazards in high-density informal urban settlements. Developed using **Leaflet**, **GeoPandas**, and **OpenStreetMap**, with an empirical field case study conducted across Seelampur (North East Delhi).
 
-![MapLibre GL](https://img.shields.io/badge/MapLibre%20GL-4.5.0-3276c3?logo=maplibre)
+![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-199900?logo=leaflet)
 ![GeoPandas](https://img.shields.io/badge/GeoPandas-Spatial%20ETL-139C5A?logo=pandas)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python)
 ![GeoJSON](https://img.shields.io/badge/Data%20Format-GeoJSON-blue)
@@ -14,10 +14,30 @@ An interactive Web GIS platform and multi-criteria spatial risk assessment engin
 
 ## Visual Showcase
 
-### Live Web GIS Interface & Enterprise Telemetry Inspector
-The platform renders color-coded spatial risk markers over cadastral parcel footprints, featuring real-time layer toggles, risk tier legends, and an on-click enterprise vulnerability inspector displaying comprehensive field telemetry.
+### Firebreak — the Seelampur fire risk atlas
+One screen, no page scrolling: navigation along the top, a filter toolbar above the map, and a side panel that shows an overview until a workshop is selected.
 
-![Live Web GIS Interface & Enterprise Telemetry Inspector](assets/real_app_telemetry_popup.png)
+![Risk map](assets/atlas-map.png)
+
+### Unit inspector
+Selecting a workshop explains it in plain language: a risk score out of 100, how it compares with the other workshops, a Critical / Poor / Fair / Good grade for escape routes, fire hazards and fire-engine access, and each of the fifteen survey findings marked High risk, Some risk or OK. (The score is the Fire Risk Index × 100; exports keep the raw 0–1 values.)
+
+![Unit inspector](assets/atlas-unit.png)
+
+### Live dispatch and hose relay planning
+Dispatch a fire tender or ambulance from the nearest base along real streets (OSRM), with turn-by-turn guidance, or plan the manual hose relay from the closest staging road.
+
+![Live dispatch](assets/atlas-dispatch.png)
+
+### Cadastral context layers
+Land use, building height, the street network, transit and community facilities load on demand from the survey GeoJSON in `data/`.
+
+![Land-use layer](assets/atlas-landuse.png)
+
+### Settlement insights
+Eight charts on one screen — risk-level donut, score histogram, risk mix by locality, an escape-versus-access bubble chart, risk by area, most common problems, a problems-by-locality heatmap and past fires by risk level — all computed live from the dataset and from whatever filters are active.
+
+![Insights](assets/atlas-insights.png)
 
 ### Cadastral Field Survey & Study Area Map (Seelampur, Delhi)
 Detailed spatial mapping showing 148 surveyed micro-enterprise locations, primary road networks, inner streets, drainage channels, and municipal boundaries.
@@ -63,7 +83,7 @@ flowchart TD
 
     subgraph Tier4 ["Tier 4: Interactive Client & Telemetry Visualizer"]
         HTTPServer["serve.py / start.bat (Local Server)"]
-        MapLibre["index.html (MapLibre GL 4.5.0 WebGL Engine)"]
+        MapLibre["index.html + css/app.css + js/app.js (Leaflet 1.9.4)"]
         OSMBasemap["OpenStreetMap Raster Base Tiles"]
         LayerControls["Dynamic Layer Control Matrix (5 Group Filters)"]
         TelemetryInspector["Interactive Popup Inspector (25+ Field Metrics)"]
@@ -266,6 +286,67 @@ data/
 ├── schools.geojson              # Primary and secondary educational facilities
 └── religious_places.geojson     # Mosques, temples, and gathering locations
 ```
+
+---
+
+## Application Structure
+
+The interface is a static, dependency-free front end (Leaflet is loaded from a CDN):
+
+```
+index.html        # Shell markup: sign-in, navigation rail, map, page views
+css/app.css       # Design tokens and all interface styles
+js/data.js        # Survey dataset: 148 workshops, scoring map, study-area outline
+js/app.js         # Filters, map, unit inspector, dispatch, hose plan, insights, registry, role workspaces
+```
+
+| View | What it is for |
+| :--- | :--- |
+| **Map** | Filter by locality, tier and condition from the toolbar; toggle basemap, risk and survey layers; inspect any unit |
+| **Insights** | Eight charts: risk levels, score spread, locality mix, escape vs access, risk by area, common problems, problem heatmap, past fires — follows the active filters |
+| **Workshops** | Sortable table of every workshop; CSV and GeoJSON export |
+| **Role tab** | Changes with the role: Command, Planning, Field audit, or Governance |
+
+The app name is the `APP_NAME` constant at the top of `js/app.js`. The logo is `assets/logo.svg`; the earlier `logo.jpg` is no longer referenced.
+
+Every figure on screen is computed from `js/data.js`; nothing is hard-coded in the markup.
+
+> **Note:** `generate_app.py`, `build_index.py` and the `apply_*` / `add_*` / `update_*` patch scripts belong to the
+> previous single-file interface. Running them will overwrite `index.html` with the old design.
+
+---
+
+## Deploying to Render
+
+The site is static and deploys from `render.yaml` (a Render Blueprint):
+
+1. Push the repository to GitHub.
+2. In Render choose **New → Blueprint**, select the repository, and apply. (Or use the *Deploy to Render* button at the top of this page.)
+3. Render runs `node scripts/build.mjs` and publishes the `dist/` folder. Every later push to `main` redeploys automatically.
+
+What the build does:
+
+- Copies only what the app serves — `index.html`, `css/`, `js/`, `assets/logo.svg` and the GeoJSON layers in `data/` — so scripts, raw data and screenshots in the repository are never published.
+- Stops the deploy if a required file is missing, suspiciously small, or a data layer is not valid JSON.
+- Adds a content hash to asset URLs (`js/app.js?v=…`) so a new release is never hidden by a cached file.
+
+`render.yaml` also sets the response headers: a year of caching for the hashed assets, and a Content Security Policy that allows only the sources the app uses (Leaflet from unpkg, Google Fonts, OpenStreetMap and Esri tiles, and the OSRM routing service). If you add another external source, add it to that policy too.
+
+To check the production build locally:
+
+```bash
+node scripts/build.mjs
+```
+
+```bash
+python -m http.server 8080 --directory dist
+```
+
+Things to know before sharing the link widely:
+
+- **Sign-in is a demo.** Roles and the password are checked in the browser, so it is not access control. Do not put private data behind it.
+- **Map tiles** come from OpenStreetMap's public tile servers, which are meant for light use. For heavy traffic, switch `lyr.base.streets` in `js/app.js` to a provider with an API key.
+- **Routing** uses the public OSRM demo server. If it is unreachable the app says so and falls back to a straight-corridor estimate.
 
 ---
 
