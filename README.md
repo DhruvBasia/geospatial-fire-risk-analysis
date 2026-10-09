@@ -8,7 +8,7 @@ An interactive Web GIS platform and multi-criteria spatial risk assessment engin
 ![GeoJSON](https://img.shields.io/badge/Data%20Format-GeoJSON-blue)
 ![OpenStreetMap](https://img.shields.io/badge/Basemap-OpenStreetMap-7EBC6F?logo=openstreetmap)
 ![License](https://img.shields.io/badge/License-MIT-green)
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/DhruvBasia/geospatial-fire-risk-analysis)
+[![Live Platform](https://img.shields.io/badge/Live%20Platform-seelampur--fire--risk--map.onrender.com-46E3B7?logo=render&logoColor=white)](https://seelampur-fire-risk-map.onrender.com)
 
 ---
 
@@ -321,7 +321,7 @@ Every figure on screen is computed from `js/data.js`; nothing is hard-coded in t
 The site is static and deploys from `render.yaml` (a Render Blueprint):
 
 1. Push the repository to GitHub.
-2. In Render choose **New → Blueprint**, select the repository, and apply. (Or use the *Deploy to Render* button at the top of this page.)
+2. In Render choose **New → Blueprint**, select the repository, and apply.
 3. Render runs `node scripts/build.mjs` and publishes the `dist/` folder. Every later push to `main` redeploys automatically.
 
 What the build does:
