@@ -1,11 +1,9 @@
 services:
-  # Option 1: Static Site (Recommended: 100% Free, Instant CDN, Never sleeps)
-  - type: static
+  - type: web
     name: seelampur-fire-risk-map
-    buildCommand: python generate_app.py
+    runtime: static
     staticPublishPath: .
-    pullRequestPreviewsEnabled: true
     routes:
       - type: rewrite
-        source: /
+        source: /*
         destination: /index.html
