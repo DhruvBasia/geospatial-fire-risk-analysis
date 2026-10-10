@@ -21,6 +21,7 @@ venv/
 
 # --- Build output (Render builds it with `node scripts/build.mjs`) ---
 dist/
+brag-output/
 *.tmp
 
 # --- Local tooling ---
