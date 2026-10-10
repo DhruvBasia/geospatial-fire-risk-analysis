@@ -14,7 +14,7 @@ An interactive Web GIS platform and multi-criteria spatial risk assessment engin
 
 ## Visual Showcase
 
-### Firebreak — the Seelampur fire risk atlas
+### AgniDrishti — the Seelampur fire risk atlas
 One screen, no page scrolling: navigation along the top, a filter toolbar above the map, and a side panel that shows an overview until a workshop is selected.
 
 ![Risk map](assets/atlas-map.png)

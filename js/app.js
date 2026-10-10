@@ -1,4 +1,4 @@
-/* Firebreak, the Seelampur fire risk atlas — application logic.
+/* AgniDrishti, the Seelampur fire risk atlas — application logic.
    One filter state drives the map, insights, registry and role workspaces;
    every figure on screen is computed from the survey dataset in js/data.js. */
 (() => {
@@ -9,7 +9,7 @@
   // =========================================================
   // DOMAIN MODEL
   // =========================================================
-  const APP_NAME = 'Firebreak';
+  const APP_NAME = 'AgniDrishti';
   const TIERS = ['Severe', 'High', 'Moderate', 'Low'];
   // The Fire Risk Index is stored 0–1; people read it as a risk score out of 100, so `range` is in points.
   const TIER = {

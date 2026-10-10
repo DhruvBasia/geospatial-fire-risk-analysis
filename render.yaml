@@ -1,4 +1,4 @@
-# Render blueprint — Firebreak is a static site.
+# Render blueprint — AgniDrishti is a static site.
 # The build copies only what the app serves into dist/ (see scripts/build.mjs).
 services:
   - type: web
